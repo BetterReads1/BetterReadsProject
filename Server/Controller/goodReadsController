@@ -2,4 +2,4 @@ const db = require('../Models/betterReadsModel');
 
 const goodReadsController = {};
 
-goodReads
+// goodReads.
