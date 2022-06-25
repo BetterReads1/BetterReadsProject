@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 const axios = require('axios');
 
-class CreatePost extends Component () {
-    constructor(props) {
-      super(props);
-    }
+class CreatePost extends Component {
+    // constructor(props) {
+    //   // super(props);
+    // }
 
     componentDidMount() {
       axios.get('/')
@@ -18,9 +18,9 @@ class CreatePost extends Component () {
     }
 
     render() {
-    //   return (
-        
-    //   );
+      return (
+        <div> CREATE POST </div>
+      );
     }
   }
   export default CreatePost;
