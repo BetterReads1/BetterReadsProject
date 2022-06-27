@@ -13,9 +13,9 @@ class MainContainer extends Component {
       return (
         <div id="main-container">
           <CreatePost/>
-          {/* <RenderFeed/> */}
+          <RenderFeed/>
         </div>
       );
     }
-  }
+  };
   export default MainContainer;

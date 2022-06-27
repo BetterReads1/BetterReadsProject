@@ -1,11 +1,19 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const port = 3000;
+// const goodReadsController = require("../Server/Controller/goodReadsController");
+const path = require('path');
 
+app.use(cors());
+app.use(express.json());
 
-app.get('/',  (req, res) => {
-    res.status(200).send("WOO, IT ConnecteD!")
-})
+// send index.html file to base endpoint
+// app.use(express.static(path.resolve(__dirname, '../dist')));
+
+// app.get('/',  goodReadsController.createPost, (req, res) => {
+//     res.status(200).send(res.locals.test);
+// })
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
