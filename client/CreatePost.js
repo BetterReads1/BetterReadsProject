@@ -8,9 +8,10 @@ class CreatePost extends Component {
     // }
 
     componentDidMount() {
-      axios.get('/')
+      axios.get('http://localhost:3000/')
         .then( res => {
-          console.log(res);
+          // console.log(res.locals.test);
+          console.log(res.data);
         })
         .catch(err => {
           console.log(err);
