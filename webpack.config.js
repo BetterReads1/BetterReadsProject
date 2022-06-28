@@ -7,6 +7,26 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
   },
+
+  devServer: {
+    host: 'localhost',
+    port: 8080,
+    // enable HMR on the devServer
+    hot: true,
+    // fallback to root for other urls
+    historyApiFallback: true,
+
+    static: {
+      // match the output path
+      directory: path.resolve(__dirname, 'dist'),
+      // match the output 'publicPath'
+      publicPath: '/',
+    },
+    proxy: {
+      '/api/**': 'http://localhost:3000/',
+  },
+  },
+
   module: {
     rules: [
       {
@@ -43,11 +63,12 @@ module.exports = {
     },
     ]
   },
-  plugins: [
+  
+  plugins: [  
     new HtmlWebpackPlugin({
      template: path.join(__dirname, "src", "index.html"),
     }),
   ],
   devtool: 'inline-source-map',
   
-};
+}
