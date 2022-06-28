@@ -2,8 +2,12 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const port = 3000;
-// const goodReadsController = require("../Server/Controller/goodReadsController");
+const betterReadsController = require("./Controller/betterReadsController");
+const queryMiddleware = require('./Controller/queryMiddleware.js')
 const path = require('path');
+
+const {addToBook_Table, getBook_Id, addToPost_Table, getPost_Id, addToHash_Table, addToRating_Table, addToPost_Hash_Join} = queryMiddleware;
+const {threePost_Table, threeRatings_Table, threeBook_Table} = betterReadsController;
 
 app.use(cors());
 app.use(express.json());
@@ -11,9 +15,13 @@ app.use(express.json());
 // send index.html file to base endpoint
 // app.use(express.static(path.resolve(__dirname, '../dist')));
 
-// app.get('/',  goodReadsController.createPost, (req, res) => {
-//     res.status(200).send(res.locals.test);
-// })
+app.post('/', addToBook_Table, getBook_Id, addToPost_Table, getPost_Id, addToRating_Table, addToHash_Table, addToPost_Hash_Join, (req, res) => {
+    res.status(200).json(res.locals.post_id);
+})
+
+app.get('/', threePost_Table, (req, res) => {
+    res.status(200).json(res.locals.posts);
+})
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
@@ -31,8 +39,8 @@ app.use((err, req, res, next) => {
         message: {err: "Error sent in response"}
     }
     const errorObj = Object.assign(defaultError, err);
-    console.log(errObj.log);
-    return res.staus(errorObj.status).json(errorObj.message)
+    console.log(errorObj.log);
+    return res.status(errorObj.status).json(errorObj.message)
 })
 
 module.exports = app;
