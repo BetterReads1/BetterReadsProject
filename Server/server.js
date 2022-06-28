@@ -1,10 +1,11 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const cors = require('cors');
 const port = 3000;
+
 const betterReadsController = require("./Controller/betterReadsController");
 const queryMiddleware = require('./Controller/queryMiddleware.js')
-const path = require('path');
 
 const {addToBook_Table, getBook_Id, addToPost_Table, getPost_Id, addToHash_Table, addToRating_Table, addToPost_Hash_Join} = queryMiddleware;
 const {threePost_Table, threeRatings_Table, threeBook_Table} = betterReadsController;
@@ -26,7 +27,6 @@ app.get('/', threePost_Table, (req, res) => {
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
 });
-
 
 app.use((req, res) => {
     res.status(404).json("Page not found");
