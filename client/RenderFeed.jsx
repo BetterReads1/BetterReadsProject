@@ -73,7 +73,8 @@ const RenderFeed = () => {
   const posts = [];
     for(let i = 0; i < 3; i++) {
       const tempTags = newestPosts[i].tags.join(", ");
-      posts.push(<div id="post">
+      posts.push(
+      <div id="post">
         <p>Name: {newestPosts[i].name}</p> <br/>
         <p>Title: {newestPosts[i].title}</p> <br/>
         <p>Author: {newestPosts[i].author}</p> <br/>

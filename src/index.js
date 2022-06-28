@@ -1,9 +1,10 @@
 import React, {StrictMode} from "react";
 import ReactDOM from 'react-dom';
-import App from '../client/App';
+import App from '../client/App.jsx';
+import './style.css';
 
 ReactDOM.render(
-    <div>
+    <div id="test-id">
         <StrictMode>
         <App/>
         </StrictMode>

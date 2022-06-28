@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
 const axios = require('axios');
 
+
 const CreatePost = () => {
 
   // componentDidMount() {
@@ -65,7 +66,7 @@ const CreatePost = () => {
   }
 
   return (
-    <div>
+    <div id="form-container">
       <form action="http://localhost:3000/" onSubmit={handleSubmit} id="post-form">
         Name:<input 
           id="name"
@@ -156,7 +157,7 @@ const CreatePost = () => {
           value={tags}
           placeholder="Separate tags with commas (i.e. fiction, romance, etc)"
           required
-        />
+        /> <br/>
         <button type="submit">Submit form</button>
       </form>
     </div>

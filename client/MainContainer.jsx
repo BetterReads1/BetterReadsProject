@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import CreatePost from './CreatePost';
-import RenderFeed from './RenderFeed';
+import CreatePost from './CreatePost.jsx';
+import RenderFeed from './RenderFeed.jsx';
 
 class MainContainer extends Component {
     // constructor(props){

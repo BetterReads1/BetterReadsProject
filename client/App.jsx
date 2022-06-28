@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import ReactDOM from 'react-dom';
-import MainContainer from './MainContainer'
+import MainContainer from './MainContainer.jsx'
 
 class App extends Component {
 
@@ -11,6 +10,6 @@ class App extends Component {
       </div>
     );
   }
-  
 };
+
 export default App;
