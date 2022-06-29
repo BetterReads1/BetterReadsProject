@@ -15,9 +15,9 @@ const bookController = require('./controller/bookController');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use('/', express.static(path.join(__dirname, '../dist')));
 app.use('/', (req, res) => res.sendFile(path.resolve(__dirname, '../src/index.html')));
 
-app.use(express.static(path.resolve(__dirname, '../dist')));
 
 /* GET Request on 'localhost:3000/books'
 * ==================================================

@@ -22,12 +22,13 @@ const server = 'http://localhost:3000';
     
 //   })
 
+
 //   describe('/addBook')
 
 //   describe('/ratings')
 
-  describe('/addRating', () => {
-    describe()
-  })
+//   describe('/addRating', () => {
+//     describe()
+//   })
 
 });
