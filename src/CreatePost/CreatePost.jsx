@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
-const axios = require('axios');
+import axios from 'axios';
 
 
 const CreatePost = () => {
@@ -46,6 +46,7 @@ const CreatePost = () => {
         "Accept": "application/json"
       }
       const responseData = await axios.post(url, formData, header);
+      //edit so we use responseData to change the state to show newly created review.
       console.log({ responseData });
     } catch(error){
       console.error(error);
@@ -64,7 +65,7 @@ const CreatePost = () => {
     setOverallEnjoyability('');
     setTags('');
   }
-
+//best practice is not to have
   return (
     <div id="form-container">
       <form action="http://localhost:3000/" onSubmit={handleSubmit} id="post-form">
