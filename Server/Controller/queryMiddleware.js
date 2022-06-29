@@ -24,7 +24,7 @@ queryMiddleware.addToBook_Table = (req, res, next) => {
 
 queryMiddleware.getBook_Id = (req, res, next) => {
     //destructure the request body
-    const { title } = req.body;
+    // const { title } = req.body;
     //query for adding getting book_id
     const book_tableAdded = `SELECT book_id FROM book_table WHERE title = $1`
     const book_idParamArray = [title];

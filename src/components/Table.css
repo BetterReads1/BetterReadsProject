@@ -1,0 +1,30 @@
+table {
+    width: 80%;
+    border-collapse: collapse;
+    border: 5px solid rgb(58, 58, 185);
+    box-shadow: 5px 5px 5px rgb(43, 43, 43);
+  }
+  
+  th {
+    padding: 20px;
+    text-align: center;
+    border: 5px solid;
+    border-left: none;
+    border-right: none;
+
+    border-color: rgb(33, 33, 187);
+      
+  }
+
+  td {
+    padding: 20px;
+    text-align: center;
+    border: 1px solid;  
+    font-size: large;
+    font: Serif;
+  }
+
+  tr {
+    font-size: large;
+    font: Serif;
+  }
