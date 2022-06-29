@@ -4,6 +4,11 @@ const db = require('../Models/betterReadsModel');
 const betterReadsController = {};
 
 // res.locals.postIDs + res.locals.threeobjects
+/* 
+* ==================================================
+*   HARD CODED Data for Presentation
+* ==================================================
+*/
 const postOne = {
     name: "user1",
     title: "Catcher in the Rye",
@@ -44,6 +49,14 @@ const postThree = {
       tags: ["mystery","action","love"],
 }
 
+
+/* 
+* ==================================================
+*   Before: (from server.js)
+*   Stores predefined objects (postOne, postTwo, postThree) into 'res.locals.posts'
+*   Next: array of [postOne, postTwo, postThree]
+* ==================================================
+*/
 betterReadsController.threePost_Table = (req, res, next) => {
     res.locals.posts = [postOne, postTwo, postThree];
 
@@ -65,6 +78,14 @@ betterReadsController.threePost_Table = (req, res, next) => {
     next();  
 };
 
+/* 
+* ==================================================
+*   Before: (unused)
+*   Task
+        1) (undefined) Query to threeRatings_Table (To GET 3 most recent data?)
+*   Next: (none)
+* ==================================================
+*/
 betterReadsController.threeRatings_Table = (req, res, next) => {
 
     const threeRatings_TableQuery = ''
@@ -83,6 +104,14 @@ betterReadsController.threeRatings_Table = (req, res, next) => {
     next();  
 };
 
+/* 
+* ==================================================
+*   Before: (unused)
+*   Task
+        1) (undefined) Query to threeBook_TableQuery (To GET 3 most recent data?)
+*   Next: (none)
+* ==================================================
+*/
 betterReadsController.threeBook_Table = (req, res, next) => {
 
     const threeBook_TableQuery = ''

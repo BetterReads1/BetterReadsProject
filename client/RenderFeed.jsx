@@ -1,6 +1,14 @@
+
 import React, {useState, useEffect} from 'react';
 const axios = require('axios');
 
+
+
+/*
+* ==================================================
+*   3 Hardcoded book entries.
+* ==================================================
+*/
 const RenderFeed = () => {
   const [newestPostIds,setNewestPostIds] = useState([]);
   // const [newestPosts,setNewestPosts] = useState([]);
@@ -48,6 +56,12 @@ const RenderFeed = () => {
     }
   ]
 
+
+/*
+* ==================================================
+*   An abandoned attempt to use useEffect() 
+* ==================================================
+*/
   // useEffect(() => {
   //   setNewestPostIds(postIds);
   //   setNewestPosts(postsData); 
@@ -70,6 +84,14 @@ const RenderFeed = () => {
   // }, [newestPostIds])
 
   //parses newestPosts and creates jsx elements to render
+  
+  
+  /*
+  * ==================================================
+  *   Render the 3 hardcoded posts.
+  * ==================================================
+  */
+  
   const posts = [];
     for(let i = 0; i < 3; i++) {
       const tempTags = newestPosts[i].tags.join(", ");

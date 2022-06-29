@@ -3,11 +3,14 @@ import CreatePost from './CreatePost.jsx';
 import RenderFeed from './RenderFeed.jsx';
 
 class MainContainer extends Component {
-    // constructor(props){
-    //     // this.state: {
 
-    //     // }
-    // }
+
+/*
+! ==================================================
+!   This is why/where everything is presented in a 
+!   single column.
+! ==================================================
+*/
 
     render() {
       return (

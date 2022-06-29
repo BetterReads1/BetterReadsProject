@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
 const axios = require('axios');
-
+ 
 
 const CreatePost = () => {
 
@@ -16,7 +16,14 @@ const CreatePost = () => {
   //       })
   // }
 
-  const [name, setName] = useState('');
+
+/*
+* ==================================================
+*   Creating an EMPTY state.
+* ==================================================
+*/
+
+  const [name, setName] = useState(''); 
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [comments, setComments] = useState('');
@@ -28,6 +35,13 @@ const CreatePost = () => {
   const [overallEnjoyability, setOverallEnjoyability] = useState('');
   const [tags, setTags] = useState('');
 
+
+
+/*
+* ==================================================
+*   Handles when user presses submit (ghost & mirrors)
+* ==================================================
+*/
   const handleSubmit = async event => {
     console.log('handleSubmit ran');
     event.preventDefault(); //prevents the default behaviour of the browser submitting the form so that we can handle things instead.
@@ -40,18 +54,39 @@ const CreatePost = () => {
       const formData = new FormData(form); //takes all the fields in the form and makes their values available through a `FormData` instance
       console.log("form data: ", formData);
       formData.tags = formData.tags.split(','); //make tags an array of strings
+      console.log('🔴🟠🟡🟢🔵🟣 | file: CreatePost.jsx | line 50 | CreatePost | formData', formData);
       consoel.log("form tags data should be an array: ", formData.tags);
       header = {
         "Content-Type": "application/json",
         "Accept": "application/json"
       }
+      
+      
+      /*
+      ! ==================================================
+      !   Use of axios + async + await = unnecessary
+      ! ==================================================
+      */
+      
       const responseData = await axios.post(url, formData, header);
-      console.log({ responseData });
-    } catch(error){
+      console.log('🔴🟠🟡🟢🔵🟣 | file: CreatePost.jsx | line 49 | CreatePost | responseData', {responseData});
+    } catch (error) {
+      /*
+      * ==================================================
+      *   Errors posting are only being sent to console.
+      *   The user IS NOT notified of success or failure.
+      * ==================================================
+      */
       console.error(error);
     }
 
-    //reset input values in form
+
+    
+    /*
+    * ==================================================
+    *   Empty all form fields
+    * ==================================================
+    */
     setName('');
     setTitle('');
     setAuthor('');
@@ -67,11 +102,27 @@ const CreatePost = () => {
 
   return (
     <div id="form-container">
+      
+      
+      /*
+      ! ==================================================
+      !   Is this the best place to perform a post in
+      !   a react app???
+      ! ==================================================
+      */
       <form action="http://localhost:3000/" onSubmit={handleSubmit} id="post-form">
         Name:<input 
           id="name"
           name="name"
           type="text"
+
+
+          /*
+          ! ==================================================
+          !   The target values SHOULD NOT be set/reset with
+          !   every key stroke.
+          ! ==================================================
+          */
           onChange={event => setName(event.target.value)}
           value={name}
           required
@@ -100,6 +151,15 @@ const CreatePost = () => {
           value={comments}
           required
         /><br/>
+        
+        
+        /*
+        * ==================================================
+        *   Only accepting numbers (without noted meaning)
+        *   (Not good UI design)
+        * ==================================================
+        */
+        
         <div className='ratings'> Ratings: <br/>
           Plotline: <input 
             id="plotline"
