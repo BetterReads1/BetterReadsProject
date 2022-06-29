@@ -1,21 +1,21 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import CreatePost from '../CreatePost/CreatePost.jsx';
 import RenderFeed from '../RenderFeed/RenderFeed.jsx';
 
 class MainContainer extends Component {
-    // constructor(props){
-    //     // this.state: {
+  // constructor(props){
+  //     // this.state: {
 
-    //     // }
-    // }
+  //     // }
+  // }
 
-    render() {
-      return (
-        <div id="main-container">
-          <CreatePost/>
-          <RenderFeed/>
-        </div>
-      );
-    }
-  };
-  export default MainContainer;
+  render() {
+    return (
+      <div id="main-container">
+        <CreatePost />
+        <RenderFeed />
+      </div>
+    );
+  }
+}
+export default MainContainer;
