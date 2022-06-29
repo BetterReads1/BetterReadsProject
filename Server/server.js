@@ -12,14 +12,9 @@ const ratingController = require('./controller/ratingController');
 const bookController = require('./controller/bookController');
 
 
-/*
-* ==================================================
-*   This block added by Jim White as sample for
-*   database integration / setup.
-* ==================================================
-*/
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 app.use('/', express.static(path.resolve(__dirname, '/public/')));
 
 // send index.html file to base endpoint
