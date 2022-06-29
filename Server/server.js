@@ -7,6 +7,56 @@ const port = 3000;
 const betterReadsController = require("./Controller/betterReadsController");
 const queryMiddleware = require('./Controller/queryMiddleware.js')
 
+const bookRouter = require('./sampleRouterWith DB FunctionCalls.js')
+
+
+
+
+
+
+/*
+* ==================================================
+*   This block added by Jim White as sample for
+*   database integration / setup.
+* ==================================================
+*/
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use('/', express.static(path.resolve(__dirname, '/public/')));
+
+const db = require('knex')({
+  client: 'mysql2',
+  connection: {
+    host: '23.235.206.125',
+    port: 3306,
+    user: 'jimtermini_bradmin',
+    password: '123br456',
+    database: 'jimtermini_bestestreads',
+  },
+});
+
+app.set('db', db); //* Allows the whole app to use the db
+
+app.use('/book', bookRouter);
+
+//* ==================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 
 * ===================================================================
 *   Destructuring of middlewares inside 
