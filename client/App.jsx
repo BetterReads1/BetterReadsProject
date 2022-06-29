@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-import MainContainer from './MainContainer.jsx'
+import MainContainer from './containers/MainContainer.jsx'
 
-class App extends Component {
-
-  render() {
+const App = () => {
+   
     return (
       <div id="App">
         <MainContainer/>
       </div>
     );
   }
-};
+;
 
 export default App;
