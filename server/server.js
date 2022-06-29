@@ -1,9 +1,16 @@
 const express = require('express');
-const app = express();
-const port = 3000;
 const path = require('path');
 
+const reviewsRouter = require('./routes/reviewsRouter')
+
+const app = express();
+const port = 3000;
+
+
 app.use(express.json());
+app.use(express.urlencoded({extended: true}))
+
+app.use('/api/reviews', reviewsRouter); 
 
 // send index.html file to base endpoint
 app.use(express.static(path.resolve(__dirname, '../dist')));
