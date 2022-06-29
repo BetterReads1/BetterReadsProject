@@ -1,6 +1,10 @@
-const db = require('../Models/betterReadsModel');
+const db = require('./betterReadsModel');
 
 const queryMiddleware = {}
+
+/*
+! WE ARE NO LONGER USING THIS FILE
+*/
 
 /*
 * ==================================================
@@ -41,6 +45,7 @@ const queryMiddleware = {}
             title, 
             author
         }
+
         post_table  {
             username, 
             comments, 
@@ -58,7 +63,8 @@ const queryMiddleware = {}
             book_id, 
             plotline, 
             unpredictability, 
-            pace, writing_style, 
+            pace, 
+            writing_style, 
             ending, 
             overall_enjoyability
         }
@@ -122,22 +128,22 @@ queryMiddleware.getBook_Id = (req, res, next) => {
 *   Next: getPost_Id
 * ==================================================
 */
-queryMiddleware.addToPost_Table = (req, res, next) => {
-    const { name, comments } = req.body;
-    const post_tableAdd = `INSERT INTO post_table (username, comments, book_id) VALUES ($1, $2, $3) RETURNING *`
-    const post_tableParamArray = [name, comments, res.locals.book_id];
+// queryMiddleware.addToPost_Table = (req, res, next) => {
+//     const { name, comments } = req.body;
+//     const post_tableAdd = `INSERT INTO post_table (username, comments, book_id) VALUES ($1, $2, $3) RETURNING *`
+//     const post_tableParamArray = [name, comments, res.locals.book_id];
 
-    db.query(post_tableAdd, post_tableParamArray)
-    .then((data) => {
-        // console.log("SUCCESSFULLY ADDED POST TO POST_TABLE");
-        next();
-    }).catch((err) => {
-        next({
-            log: 'addPostTable error',
-            message: {err: 'An error occured in addToPostTable'}
-        });
-    });
-}
+//     db.query(post_tableAdd, post_tableParamArray)
+//     .then((data) => {
+//         // console.log("SUCCESSFULLY ADDED POST TO POST_TABLE");
+//         next();
+//     }).catch((err) => {
+//         next({
+//             log: 'addPostTable error',
+//             message: {err: 'An error occured in addToPostTable'}
+//         });
+//     });
+// }
 
 /*
 * ==================================================
@@ -148,26 +154,26 @@ queryMiddleware.addToPost_Table = (req, res, next) => {
 *   Next: 'addToHash_Table'
 * ==================================================
 */
-queryMiddleware.getPost_Id = (req, res, next) => {
-    //destructure the request body
-    const { name, comments } = req.body;
-    const book_id = res.locals.book_id;
-    //query for adding getting book_id
-    const post_tableAdded = `SELECT post_id FROM post_table WHERE username = $1 AND comments = $2`
-    const post_idParamArray = [name, comments];
+// queryMiddleware.getPost_Id = (req, res, next) => {
+//     //destructure the request body
+//     const { name, comments } = req.body;
+//     const book_id = res.locals.book_id;
+//     //query for adding getting book_id
+//     const post_tableAdded = `SELECT post_id FROM post_table WHERE username = $1 AND comments = $2`
+//     const post_idParamArray = [name, comments];
 
-    db.query(post_tableAdded, post_idParamArray)
-    .then((data) => {
-        //console.log("Data:", data)
-        res.locals.post_id = data.rows[0].post_id;
-        next();
-    }).catch((err) => {
-        return next({
-            log: 'getting post_id',
-            message: {err: 'An error occured in getting post_id'}
-        });
-    })
-}
+//     db.query(post_tableAdded, post_idParamArray)
+//     .then((data) => {
+//         //console.log("Data:", data)
+//         res.locals.post_id = data.rows[0].post_id;
+//         next();
+//     }).catch((err) => {
+//         return next({
+//             log: 'getting post_id',
+//             message: {err: 'An error occured in getting post_id'}
+//         });
+//     })
+// }
 
 /*
 * ==================================================
@@ -183,28 +189,28 @@ ToDo: TEST ON SQL SERVER
 *   Next: 'addToRating_Table'
 * ==================================================
 */
-queryMiddleware.addToHash_Table = (req, res, next) => {
-    //destructure the request body
-    const { tags } = req.body;
-    const tagsArray = tags.split(",");
-    console.log(tagsArray)
+// queryMiddleware.addToHash_Table = (req, res, next) => {
+//     //destructure the request body
+//     const { tags } = req.body;
+//     const tagsArray = tags.split(",");
+//     console.log(tagsArray)
 
-    const queryString = `INSERT INTO hash_table (hash) VALUES ($1), ($2), ($3) RETURNING *`
+//     const queryString = `INSERT INTO hash_table (hash) VALUES ($1), ($2), ($3) RETURNING *`
 
-    db.query(queryString, tagsArray)
-    .then((data) => {
-        console.log(" -------------------------------------------------------- ADD TO HASH TABLE D:", data)
-        res.locals.hashOne = data.rows[0].hash_id;
-        res.locals.hashTwo = data.rows[1].hash_id;
-        res.locals.hashThree = data.rows[2].hash_id;
-        next();
-    })
-    .catch((err) => {
-        return next();
-    })
-    //query for adding to the book table
-    //adds book title and author to database if it doesnt exist
-}
+//     db.query(queryString, tagsArray)
+//     .then((data) => {
+//         console.log(" -------------------------------------------------------- ADD TO HASH TABLE D:", data)
+//         res.locals.hashOne = data.rows[0].hash_id;
+//         res.locals.hashTwo = data.rows[1].hash_id;
+//         res.locals.hashThree = data.rows[2].hash_id;
+//         next();
+//     })
+//     .catch((err) => {
+//         return next();
+//     })
+//     //query for adding to the book table
+//     //adds book title and author to database if it doesnt exist
+// }
 
 
 /* 
@@ -216,7 +222,6 @@ queryMiddleware.addToHash_Table = (req, res, next) => {
 *   After: 'addToPost_Hash_Join'
 * ===================================================================
 */
-// add to rating_table
 queryMiddleware.addToRating_Table = (req, res, next) => {
     const { book_id, post_id } = res.locals;
     const {  plotline, unpredictability, pace, writingStyle, ending, overallEnjoyability } = req.body;
@@ -240,30 +245,30 @@ queryMiddleware.addToRating_Table = (req, res, next) => {
 }
 
 
-/* Add to post_hash table
+/*
 * ==================================================
 *   Before: 'addToRating_Table'
 *   Gets hashOne, hashTwo, hashThree, and post_id
 *   Next: 'server.js'
 * ==================================================
 */
-queryMiddleware.addToPost_Hash_Join = (req, res, next) => {
-    const { hashOne, hashTwo, hashThree, post_id } = res.locals;
-    //query for adding to the book table
-    const post_hash_tableAdd = `INSERT INTO post_hash_join (post_id, hash_id) VALUES ($1, $2), ($1, $3), ($1, $4) RETURNING *`
-    const post_hash_tableParamArray = [post_id, hashOne, hashTwo, hashThree];
-    //adds book title and author to database if it doesnt exist
-    db.query(post_hash_tableAdd, post_hash_tableParamArray)
-    .then((data) => {
-        console.log("-------------------------------------------------ADD TO POST HASH TABLE:",data);
-        next();
-    }).catch((err) => {
-        next({
-            log: 'addToPost_Hash_table error',
-            message: {err: 'An error occured in addToPost_Hash_tabl'}
-        });
-    });
-}
+// queryMiddleware.addToPost_Hash_Join = (req, res, next) => {
+//     const { hashOne, hashTwo, hashThree, post_id } = res.locals;
+//     //query for adding to the book table
+//     const post_hash_tableAdd = `INSERT INTO post_hash_join (post_id, hash_id) VALUES ($1, $2), ($1, $3), ($1, $4) RETURNING *`
+//     const post_hash_tableParamArray = [post_id, hashOne, hashTwo, hashThree];
+//     //adds book title and author to database if it doesnt exist
+//     db.query(post_hash_tableAdd, post_hash_tableParamArray)
+//     .then((data) => {
+//         console.log("-------------------------------------------------ADD TO POST HASH TABLE:",data);
+//         next();
+//     }).catch((err) => {
+//         next({
+//             log: 'addToPost_Hash_table error',
+//             message: {err: 'An error occured in addToPost_Hash_tabl'}
+//         });
+//     });
+// }
 
 
 
