@@ -1,0 +1,33 @@
+#navbar {
+    background-color: rgb(194, 166, 166);
+    width: 100%;
+}
+
+#el {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(194, 166, 166);
+}
+
+
+.links {
+    margin-right: 150px;
+    text-align: center;
+    width: 100px;
+    height: 40px;
+    font-size: x-large;
+    color: brown;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(194, 166, 166);
+    transition: .5s;
+}
+
+#el button:hover {
+    cursor: pointer;
+    background-color: rgb(229, 229, 229);
+    -webkit-transform: translateY(-2px);
+    transform: scale(1.08,1.08);
+    box-shadow: 2px 2px 2px rgb(43, 43, 43);
+}

@@ -1,0 +1,30 @@
+#outerBox{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100vw;
+}
+
+#loginBox {
+    display:flex;
+    font-size: 20px;
+    color: white;
+    flex-direction: column;
+    align-items: center;
+    height: fill;
+    width: fit-content;
+    padding: 30px;
+    background-color: rgb(194, 166, 166);
+    border: 3px solid;
+    border-radius: 20px;
+    box-shadow: 3 px 3px 3px rgba(0, 0, 0, 0.292);
+}
+  #loginBox input{
+    padding: 5px;
+    margin-bottom: 5px;
+  }
+  #signuplink {
+      color: white;
+      text-decoration: none;
+  }
