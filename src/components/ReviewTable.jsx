@@ -4,7 +4,7 @@ import './ReviewTable.css'
 export default function reviewTable() {
         return (
             <div>
-            <table>
+            <table id='right'>
               <thead>
                 <tr>
                   <th>review1</th>

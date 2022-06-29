@@ -5,17 +5,18 @@ import Table from '../../components/Table.jsx'
 import Navbar from '../../components/Navbar.jsx'
 import ReviewTable from '../../components/ReviewTable.jsx'
 
-class App extends Component {
 
-  render() {
+const App = () => {{
     return (
       <div id="App">
         <Navbar />
-        <div>
-          <Table />
-        </div>
-        <div>
-          <ReviewTable />
+        <div class ="both">
+          <div class="left">
+            <Table />
+          </div>
+          <div class="right">
+            <ReviewTable />
+          </div>
         </div>
       </div>
     );

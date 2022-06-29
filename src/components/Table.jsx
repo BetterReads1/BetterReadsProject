@@ -13,15 +13,11 @@ export default function Table () {
           <thead>
             <tr>
               <th>hi</th>
-              <th>ho</th>
-              <th>yo</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>hi</td>
-              <td>ho</td>
-              <td>yo</td>
             </tr>
           </tbody>
         </table>
