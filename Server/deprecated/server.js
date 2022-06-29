@@ -5,7 +5,7 @@ const cors = require('cors');
 const port = 3000;
 
 const betterReadsController = require("./controller/betterReadsController");
-const queryMiddleware = require('./controller/queryMiddleware.js')
+const queryMiddleware = require('./controller/queryMiddleware.js.js.js')
 
 /* 
 * ===================================================================

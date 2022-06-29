@@ -1,5 +1,5 @@
 const { nextTick } = require('process');
-const db = require('../Models/betterReadsModel');
+const db = require('../Models/sqldb');
 
 const bookController = {};
 

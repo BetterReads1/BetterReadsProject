@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400&display=swap');
+
+$ff-nav: 'Oxygen', sans-serif;
+$theme-main: rgb(70, 95, 204);
+nav{
+    font-family: $ff-nav;
+    background-color: $theme-main;
+    height: 45px;
+    
+    #inside-nav{
+        height: 100%;
+        display:flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        #logo{
+            margin-left: 20px;
+            height: 35px;
+            margin-bottom: 3px;
+        }
+        #right-side{
+            margin-top: 5px;
+            display:flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-right: 20px;
+            h4{
+                font-weight: 400;
+                color: white;
+                font-size: medium;
+            }
+            #button{
+                font-size: 15px;
+                border-radius: 8px;
+                margin-bottom: 8px;
+                border: 2px;
+            }
+        }
+    }
+}

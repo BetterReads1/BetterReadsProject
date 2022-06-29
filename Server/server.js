@@ -3,6 +3,8 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+app.set('db', db); //* Allows the whole app to use the db
+
 /* 
 * ===================================================================
 *   Middleware Controllers
@@ -11,7 +13,16 @@ const port = 3000;
 const ratingController = require('./controller/ratingController');
 const bookController = require('./controller/bookController');
 
+
+/*
+* ==================================================
+*   This block added by Jim White as sample for
+*   database integration / setup.
+* ==================================================
+*/
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use('/', express.static(path.resolve(__dirname, '/public/')));
 
 // send index.html file to base endpoint
 app.use(express.static(path.resolve(__dirname, '../dist')));

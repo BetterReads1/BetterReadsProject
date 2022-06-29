@@ -1,4 +1,4 @@
-const db = require('../Models/betterReadsModel');
+const db = require('./betterReadsModel');
 
 const queryMiddleware = {}
 
