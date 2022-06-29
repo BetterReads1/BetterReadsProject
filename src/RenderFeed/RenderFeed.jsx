@@ -47,7 +47,9 @@ const RenderFeed = () => {
       tags: ['mystery','action','love']
     }
   ]
+//after newestPostIds is called, the function inside useEffect is invoke. It combines componentDidMount and componentDidUpdate
 
+//need to make it a state if you want it to be remember
   // useEffect(() => {
   //   setNewestPostIds(postIds);
   //   setNewestPosts(postsData); 
