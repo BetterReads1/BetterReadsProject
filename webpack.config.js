@@ -2,8 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: process.env.NODE_ENV,
-  entry: path.join(__dirname, "src", "index.js"),
+  entry: path.join(__dirname, "src/index.js"),
   output: {
     path: path.resolve(__dirname, 'dist'),
     //filename: 'bundle.js',
@@ -24,7 +23,7 @@ module.exports = {
       publicPath: '/',
     },
     proxy: {
-      '/api/**': 'http://localhost:3000/',
+      '/api': 'http://localhost:3000/',
     },
   },
 
@@ -42,7 +41,7 @@ module.exports = {
       },
       {
         test:/\.jsx?$/,
-        exclude:/node-module/,
+        exclude:/node_module/,
         use: {
             loader:'babel-loader',
             options:{

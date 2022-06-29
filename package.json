@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production node server/server.js",
-    "dev": "concurrently \"cross-env NODE_ENV=development webpack serve --open\" \"cross-env NODE_ENV=development nodemon server/server.js\"",
-    "build": "NODE_ENV=production webpack"
+    "start": "nodemon server/server.js",
+    "dev": "concurrently \"cross-env webpack serve --mode development --open\" \"cross-env NODE_ENV=development nodemon server/server.js\"",
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "node": "^18.4.0",
     "node-postgres": "^0.6.2",
