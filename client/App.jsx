@@ -1,23 +1,14 @@
 import React, { Component } from "react";
-import MainContainer from './MainContainer.jsx'
+import MainContainer from './containers/MainContainer.jsx'
 
-class App extends Component {
-
-  componentDidMount() {
-    fetch('http://localhost:3000/genre')
-    .then(data => data.json())
-    .then((data) => {
-      console.log(data);
-    })
-  }
-
-  render() {
+const App = () => {
+   
     return (
       <div id="App">
         <MainContainer/>
       </div>
     );
   }
-}
+;
 
 export default App;

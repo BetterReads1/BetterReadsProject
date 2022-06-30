@@ -32,6 +32,22 @@ code {
     line-height: 1.1;
   }
 
+  mark {
+    background-color: #26e3528f;
+    border-radius: 0.25em;
+    box-decoration-break: clone;
+    padding: 0.125em 0;
+  }
+
+  /* Placeholder (at the top) */
+  .ProseMirror p.is-editor-empty:first-child::before {
+    color: #2472c0;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+
   code {
     background-color: rgba(#616161, 0.1);
     color: #616161;
@@ -58,8 +74,9 @@ code {
   }
 
   blockquote {
+    margin-left: 2rem;
     padding-left: 1rem;
-    border-left: 2px solid rgba(#0D0D0D, 0.1);
+    border-left: 4px solid rgba(#0D0D0D, 0.4);
   }
 
   hr {
@@ -67,5 +84,33 @@ code {
     border-top: 2px solid rgba(#0D0D0D, 0.1);
     margin: 2rem 0;
   }
+
+  .best-value {
+    text-shadow: 3px 3px rgba(200, 200, 200, 0.5);
+  }
+  /* Basic editor styles */
+.ProseMirror {
+  > * + * {
+    margin-top: 0.75em;
+  }
 }
+
+
+/* Placeholder (on every new line) */
+/*.ProseMirror p.is-empty::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}*/
+}
+
+mark {
+  background-color: #26e3528f;
+  border-radius: 0.25em;
+  box-decoration-break: clone;
+  padding: 0.125em 0;
+}
+
 
