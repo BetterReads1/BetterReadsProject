@@ -85,6 +85,9 @@ code {
     margin: 2rem 0;
   }
 
+  .best-value {
+    text-shadow: 3px 3px rgba(200, 200, 200, 0.5);
+  }
   /* Basic editor styles */
 .ProseMirror {
   > * + * {
@@ -109,4 +112,5 @@ mark {
   box-decoration-break: clone;
   padding: 0.125em 0;
 }
+
 
