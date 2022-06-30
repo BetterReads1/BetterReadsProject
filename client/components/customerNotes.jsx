@@ -31,8 +31,8 @@ import MenuBar from './MenuBar.jsx'
 
 
 
-const TicketNotes = (props) => {
-// class TicketNotes extends Component {
+const CreateReview = (props) => {
+// class CreateReview extends Component {
 
 
   const editor = useEditor({
@@ -48,29 +48,7 @@ const TicketNotes = (props) => {
       }),
     ],
     content:  `
-    <h3>
-      Hi there,
-    </h3>
-    <p>
-      Now is the time for all good men and women to come to the aid of their country.
-    </p>
-    <ul>
-      <li>
-        Blah Blah Blah …
-      </li>
-      <li>
-        Yada Yada Yada.
-      </li>
-    </ul>
-    <p>
-      Isn’t that great? And all of that is editable. But wait, there’s more. Let’s try a code block:
-    </p>
-    <pre><code class="language-css">body {
-display: none;
-}</code></pre>
-    <p>
-      It’s only the tip of the iceberg though. Give it a try and click a little bit around.
-    </p>
+    Please enter your review here...
   `,
   })
   
@@ -103,5 +81,5 @@ display: none;
 
 }
 
-export default TicketNotes;
+export default CreateReview;
  

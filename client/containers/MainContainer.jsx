@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import CreatePost from '../components/CreatePost.jsx';
-import RenderFeed from '../components/RenderFeed.jsx';
+// import CreateReview from '../components/CreateReview.jsx';
+// import RenderFeed from '../components/RenderFeed.jsx';
 import BookContainer from './BookContainer.jsx';
+import ReviewEntryContainer from './ReviewEntryContainer.jsx'
 
 const MainContainer = () =>  {
 
@@ -19,7 +20,16 @@ const MainContainer = () =>  {
 
     return (
       <div id="container border border-3 rounded-3 mt-2 p-2 border-info shadow">
-        {/* <CreatePost /> */}
+        <ReviewEntryContainer />
+        <div>
+          <div className="container h-5">
+            <br></br>
+            <br></br>
+            Below is where ALL the db results will be displayed.
+            <br></br>
+            <br></br>
+          </div>
+        </div>
           <BookContainer />
           {/* <CreatePost/> */}
         {/* <RenderFeed/> */}
