@@ -5,6 +5,8 @@ module.exports = {
   mode: 'development',
   entry: './client/index.js',
   // entry: path.join(__dirname, "client", "index.js"),
+
+  target: 'web',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
@@ -13,7 +15,8 @@ module.exports = {
 
   plugins: [  
     new HtmlWebpackPlugin({
-     template: './client/index.html',
+      inject: false,
+      template: './client/index.html',
     //  template: path.join(__dirname, "client", "index.html"),
     }),
   ],
@@ -51,11 +54,6 @@ module.exports = {
           },
         ],
       },
-      // {
-      //   test: /\.svg$/i,
-      //   issuer: /\.[jt]sx?$/,
-      //   use: ['@svgr/webpack'],
-      // },
       {
         test: /\.jsx?/,
         exclude: /(node_modules|bower_components)/,
@@ -67,8 +65,6 @@ module.exports = {
         },
       },
       {
-        // test: /\.s[ac]ss$/i,
-        // test: /\.s[ac]ss$/i,
         test: /\.(s?(a|c)ss)$/i,
         use: [
           {
@@ -104,37 +100,5 @@ module.exports = {
     ],
   },
 
-  // module: {
-  //   rules: [
-  //     {
-  //       test: /\.(js|jsx)$/,
-  //       exclude: /node_module/,
-  //       use: {
-  //         loader: "babel-loader",
-  //         options: {
-  //           presets: ['@babel/preset-env', '@babel/preset-react']
-  //         },
-  //       }
-  //     },
-  //     {
-  //       test:/\.jsx?$/,
-  //       exclude:/node-module/,
-  //       use: {
-  //           loader:'babel-loader',
-  //           options:{
-  //               presets:['@babel/preset-env', '@babel/preset-react']
-  //           }
-  //       }
-  //     },
-  //     {
-  //       test: /\.css$/i,
-  //       use: [
-  //           "style-loader",
-  //           "css-loader"
-  //         ]
-  //     }
-  //   ]
-  // },
   devtool: 'inline-source-map',
-  
 }
