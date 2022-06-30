@@ -56,7 +56,7 @@ ratingController.getRatings = function(req, res, next) {
 }
 
 const helper_CreateRatingID = function() {
-    return 0;
+    return Number(Math.floor(Math.random() * 999).toString() + Math.floor(Math.random() * 999).toString());
 }
 
 module.exports = ratingController;

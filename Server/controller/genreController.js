@@ -5,15 +5,15 @@ const genreController = {};
 /*
 * ==================================================
 *   PREV: None
-*   Get all books from table
-*   Sets res.locals.books
-*   NEXT: None/filterBooks (Optional)
+*   Get all genres from table
+*   Sets res.locals.genre
+*   NEXT: None
 * ==================================================
 */
 genreController.getGenres = (req, res, next) => {
-    const bookQuery = `SELECT * FROM genre_table`
+    const genreQuery = `SELECT * FROM genre_table`
 
-    db.query(bookQuery)
+    db.query(genreQuery)
     .then((data) => {
         const sendData = [];
 
