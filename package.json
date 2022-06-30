@@ -5,7 +5,7 @@
   "main": "index.js",
   "proxy": "http://localhost:8080",
   "scripts": {
-    "test": "concurrently \"NODE_ENV=test nodemon Server/server.js\" \"psql -d postgres://gistckhn:tAutvlvUXzQqK79XVvYhYfil1e-spECd@heffalump.db.elephantsql.com/gistckhn -f Server/Models/db_setup.sql\" \"jest\"",
+    "test": "concurrently \"psql -d postgres://gistckhn:tAutvlvUXzQqK79XVvYhYfil1e-spECd@heffalump.db.elephantsql.com/gistckhn -f Server/Models/db_setup.sql\" \"jest\"",
     "start-test": "NODE_ENV=test nodemon Server/server.js",
     "start": "nodemon Server/server.js",
     "dev": "webpack serve",

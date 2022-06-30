@@ -16,7 +16,7 @@ const pool = new Pool({ connectionString: PG_URI });
 
 module.exports = {
   query: (text, params, callback) => {
-    console.log('executed query', text);
+    console.log('Executed query: ', text);
     return pool.query(text, params, callback);
   }
 };

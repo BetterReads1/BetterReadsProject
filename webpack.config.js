@@ -12,7 +12,7 @@ module.exports = {
   
   devServer: {
     host: 'localhost',
-    port: 8080,
+    port: 9000,
     // enable HMR on the devServer
     hot: true,
     // fallback to root for other urls
@@ -25,7 +25,7 @@ module.exports = {
       publicPath: '/',
     },
     proxy: {
-      '/api/**': 'http://localhost:3000/',
+      '/genre': { target: 'http://localhost:3000/' },
     },
   },
 

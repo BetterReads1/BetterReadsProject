@@ -1,7 +1,6 @@
 const request = require('supertest');
 const server = 'http://localhost:3000';
 
-
 /*
  * Read the docs! https://www.npmjs.com/package/supertest
 */
@@ -23,13 +22,11 @@ LIST OF TESTINGS END POINTS
   [] Status
   [] Data/Content type
   [] Expected output value
-
 */
 
 jest.setTimeout(30000);
 
- describe('Route integration', () => {
-
+describe('Route integration', () => {
   describe('/', () => {
     describe('GET', () => {
       it('responds with 200 status and text/html content type', () => {
@@ -40,9 +37,8 @@ jest.setTimeout(30000);
       });
     });
   });
- });
+});
  
-// GET
   describe('/books', () => {
     describe('GET', () => {
       it('responds with a 200 status and application/json content type', () => {
@@ -65,7 +61,6 @@ jest.setTimeout(30000);
         return request(server)
           .get('/books')
           .then((res) => {
-
             const testObj = {
               book_id: expect.any(Number),
               title: expect.any(String),
@@ -77,12 +72,49 @@ jest.setTimeout(30000);
               series_name: expect.any(String),
               place_in_series: expect.any(Number)
             };
-
             expect(res.body[0]).toEqual(expect.objectContaining(testObj));
           });
       });
     })
   });
+
+  describe('/genre', () => {
+    describe('GET', () => {
+      it('responds status 200', () => {
+        return request(server)
+          .get('/genre')
+          .expect('Content-Type', /application\/json/)
+          .expect(200)
+      })
+      
+      it('returns an array', () => {
+        return request(server)
+          .get('/genre')
+          .then((res) => {
+            expect(typeof res === 'object').toBe(true)
+          });
+      })
+
+      it('Contains all the data type in the right format', () => {
+        return request(server)
+          .get('/genre')
+          .then((res) => {
+            const genre = res.body;
+            const keys = Object.keys(genre);
+
+            for(let i = 0; i < keys.length; i++) {
+              const curKey = keys[i];
+              expect(typeof parseInt(curKey)).toBe('number');
+              expect(typeof genre[curKey]).toBe('string');
+            }
+            // const firstKey = Object.keys(genre)[0]; // genre_id
+            // const testing = genre[firstKey];        // genre
+            // expect(typeof testing).toBe('string');
+            // expect(typeof parseInt(firstKey)).toBe('number');
+          })
+      });
+    });
+});
 
   
 // POST
@@ -92,39 +124,72 @@ jest.setTimeout(30000);
 // [] Data/Content type
 // [] Expected output (value)
 describe('/addBook', () => {
-  let validBook;
-
+  let book1;
+  let book2;
   beforeEach(() => {
-    validBook = {
-      book_id: expect.any(Number),
+    book1 = {
       title: 'ABook',
       author: 'writer',
+      pages: 5,
+      year: 1993,
+      genre_id: 3,
+      series: true,
+      series_name: 'Testing',
+      place_in_series: 1
+    };
+    book2 = {
+      title: 'ABook 2',
+      author: 'writer',
+      pages: 10,
+      year: 1994,
+      genre_id: 3,
+      series: true,
+      series_name: 'Testing',
+      place_in_series: 2
     };
   });
-
   
-
   describe('POST', () => {
-    afterEach(() => {
-      //Remove the latest entry from DB
-    });
-
     // One test to see if the changes go through
     it('responds with a 200 status and application/json content type', () => {
       return request(server)
         .post('/addBook')
+        .send(book1)
         .expect('Content-Type', /application\/json/)
         .expect(200);
     })
 
-    it('extra stuff', () => {
+    it('Ensure that the book added is at the end of the database', () => {
       return request(server)
         .post('/addBook')
-        .send(validBook)
-        .expect(['Alice', 'Bob', 'Eve']).toEqual(expect.arrayContaining(expected));
+        .send(book1)
+        .then((res) => {
+          expect(res.body[res.body.length - 1]).toEqual(expect.objectContaining(book1));
+        })
     })
-    //A bunch of edge cases // ! The server returning an error is a good thing here
+
+    // ! EDGE CASES:
     
+    // Should return an error if you don't send a json
+    
+    // Should return an error if you attempt to add a book with missing info
+
+    // Should return an error if you attempt to add a book with invalid data types
+
+    // ! STRETCH:
+    // Should not add a book to the database if the (loosely equal) title/author combo already exists in the DB
+    it('Ensure that the book added is at the end of the database', () => {
+      return request(server)
+        .post('/addBook')
+        .send(book1) // return array of all 
+        .then((res) => {
+          const errorObj = {
+            'err': expect.any(String)
+          };
+
+          expect(res.body).toEqual(expect.objectContaining(errorObj))
+        })
+    })
   })
 })
 

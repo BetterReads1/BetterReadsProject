@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = 3000;
+const cors = require('cors')
 
 /* 
 * ===================================================================
@@ -10,9 +11,11 @@ const port = 3000;
 */
 const ratingController = require('./controller/ratingController');
 const bookController = require('./controller/bookController');
+const genreController = require('./controller/genreController');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors());
 
 app.use('/', express.static(path.join(__dirname, '../dist')));
 
@@ -33,6 +36,18 @@ app.get('/books', bookController.getBooks, (req, res) => {
     res.status(200).json(res.locals.books);
 })
 
+/* GET Request on 'localhost:3000/genre'
+* ==================================================
+*   Middleware: genreController.getGenres 
+* ==================================================
+*/
+app.get('/genre', genreController.getGenres, (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*'); //! NEEDED to avoid CORS violations
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+    res.status(200).json(res.locals.genres);
+    console.log('==========SENT TO /genre: ', res.locals.genres);
+})
+
 /* POST Request on 'localhost:3000/addBook'
 * ==================================================
 *   Middleware: bookController.addBook 
@@ -40,7 +55,7 @@ app.get('/books', bookController.getBooks, (req, res) => {
 * ==================================================
 */
 app.post('/addBook', bookController.addBook, (req, res) => {
-    res.status(200).send('Successfully added book!');
+    res.status(200).json(res.locals.books);
 })
 
 /* GET Request on 'localhost:3000/ratings'
