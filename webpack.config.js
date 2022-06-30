@@ -12,7 +12,7 @@ module.exports = {
   
   devServer: {
     host: 'localhost',
-    port: 9000,
+    port: 8000,
     // enable HMR on the devServer
     hot: true,
     // fallback to root for other urls
