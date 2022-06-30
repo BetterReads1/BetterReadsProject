@@ -3,13 +3,26 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: path.join(__dirname, "src", "index.js"),
+  entry: './client/index.js',
+  // entry: path.join(__dirname, "client", "index.js"),
+
   target: 'web',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
   },
-  
+
+
+  plugins: [  
+    new HtmlWebpackPlugin({
+      inject: false,
+      template: './client/index.html',
+    //  template: path.join(__dirname, "client", "index.html"),
+    }),
+  ],
+
+
+
   devServer: {
     host: 'localhost',
     port: 8080,
@@ -24,48 +37,68 @@ module.exports = {
       // match the output 'publicPath'
       publicPath: '/',
     },
-    proxy: {
-      '/genre': { target: 'http://localhost:3000/' },
-    },
+    // proxy: {
+    //   '/api/**': 'http://localhost:3000/',
+    // },
   },
-
-  plugins: [
-    new HtmlWebpackPlugin({
-     inject: false,
-     template: path.resolve(__dirname, './src/index.html'),
-    }),
-  ],
-
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_module/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
-          },
-        }
-      },
-      {
-        test:/\.jsx?$/,
-        exclude:/node-module/,
-        use: {
-          loader:'babel-loader',
-          options:{
-            presets:['@babel/preset-env', '@babel/preset-react']
-          }
-        }
-      },
-      {
-        test: /\.css$/i,
+        test: /\.svg$/,
         use: [
-          "style-loader",
-          "css-loader"
-        ]
-      }
-    ]
+          {
+            loader: 'svg-url-loader',
+            options: {
+              limit: 10000,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.jsx?/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
+      },
+      {
+        test: /\.(s?(a|c)ss)$/i,
+        use: [
+          {
+            loader: 'style-loader', // inject CSS to page
+          },
+          {
+            loader: 'css-loader', // translates CSS into CommonJS modules
+          },
+          {
+            loader: 'postcss-loader', // Run post css actions
+            options: {
+              postcssOptions: {
+                plugins: function () {
+                  // post css plugins, can be exported to postcss.config.js
+                  return [require('precss'), require('autoprefixer')];
+                },
+              },
+            },
+          },
+          {
+            loader: 'sass-loader', // compiles Sass to CSS
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
+    ],
   },
+
   devtool: 'inline-source-map',
 }
