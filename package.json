@@ -5,7 +5,7 @@
   "main": "index.js",
   "proxy": "http://localhost:8080",
   "scripts": {
-    "test": "jest",
+    "test": "concurrently \"NODE_ENV=test nodemon Server/server.js\" \"psql -d postgres://gistckhn:tAutvlvUXzQqK79XVvYhYfil1e-spECd@heffalump.db.elephantsql.com/gistckhn -f Server/Models/db_setup.sql\" \"jest\"",
     "start-test": "NODE_ENV=test nodemon Server/server.js",
     "start": "nodemon Server/server.js",
     "dev": "webpack serve",
@@ -14,12 +14,12 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  
   "devDependencies": {
     "@babel/core": "^7.18.5",
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
     "babel-loader": "^8.2.5",
+    "concurrently": "^7.2.2",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "dotenv": "^16.0.1",
