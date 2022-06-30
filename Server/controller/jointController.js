@@ -1,4 +1,5 @@
 const { Console } = require('console');
+const { existsSync } = require('fs');
 const db = require('../Models/bbrModel');
 
 const jointController = {};
@@ -12,6 +13,8 @@ const jointController = {};
 * ==================================================
 */
 jointController.getGenres = (req, res, next) => {
+    console.log('RECEIVED REQUEST BODY: ', req.body);
+
     const genreQuery = `SELECT * FROM genre_table`
 
     db.query(genreQuery)
@@ -61,15 +64,12 @@ jointController.getBooks = (req, res, next) => {
 * ==================================================
 *   PREV: getBooks
 *   Adds book to table
-*   NEXT: addRating
+*   NEXT: addBook
 * ==================================================
 */
-jointController.addBook = (req, res, next) => {
-    //Receive title and author from req.body
-    const { title, author, pages, year, series, series_name, place_in_series } = req.body[0];
-    let genre_id = req.body[0].genre_id;
+jointController.checkGenre = (req, res, next) => {
+    let genre_id = req.body[0].genre;
 
-    //Check if genre exists. If it doesn't, throw an error!
     if(!res.locals.genres[genre_id]) {
         console.log(genre_id + ' does not exist in: ', res.locals.genres);
 
@@ -77,16 +77,51 @@ jointController.addBook = (req, res, next) => {
         
         if(genreNames.includes(genre_id)) {
             console.log(`Setting genre string ${genre_id} to ID of ${genreNames.indexOf(genre_id) + 1}`);
-            genre_id = genreNames.indexOf(genre_id) + 1;
+            res.locals.genre_id = genreNames.indexOf(genre_id) + 1;
+            return next();
         }
         else {
-            return next({
-                log: 'Error in middleware function: jointController.addBook',
-                message: {err: `Could not add book: ${title} to database because genre_id: ${genre_id} could not be found in database!`}
-            });
+            console.log('ok genre doesn\'t exist. trying to add now.');
+
+            db.query('INSERT INTO genre_table ( genre_id, genre) VALUES ($1, $2) RETURNING *', [genreNames.length + 1, genre_id])
+            .then((data) => {
+                res.locals.genre_id = genreNames.length + 1;
+                res.locals.newData = data.rows;
+                db.query('SELECT * FROM genre_table')
+                .then((d) => {
+                    res.locals.newGenres = d.rows;
+                    next();
+                })
+            })
+            .catch((err) => {
+                console.log(err);
+                return next({
+                    log: 'Error in middleware function: jointController.addBook',
+                    message: {err: `Could not add genre: ${genre_id} to database.`}
+                });
+            })
         }
     }
-    console.log('CONFIRMED: Genre exists!');
+    else {
+        console.log('CONFIRMED: Genre exists!');
+        res.locals.genre_id = genre_id;
+        next();
+    }     
+}
+
+/*
+* ==================================================
+*   PREV: checkGenre
+*   Adds book to table
+*   NEXT: addRating
+* ==================================================
+*/
+jointController.addBook = (req, res, next) => {
+    //Receive title and author from req.body
+    const { title, author, pages, year, series, series_name, place_in_series } = req.body[0];
+    let genre_id = res.locals.genre_id;
+
+    console.log('We trynna add a book rn.');
 
     //Check if book already exists
     const uTitleInput = title.toLowerCase().replace(' ', '');
@@ -104,7 +139,7 @@ jointController.addBook = (req, res, next) => {
             return next();
         }
     }
-    console.log('CONFIRMED: Book doesn\'t exists!');
+    console.log('CONFIRMED: Book doesn\'t exists! Adding it now!');
 
     
     //Book doesn't exist, which means we're making one!
@@ -140,6 +175,8 @@ jointController.addBook = (req, res, next) => {
 * ==================================================
 */
 jointController.addRating = function(req, res, next) {
+    console.log('STARTING ADD RATING!');
+
     //Getting various rating data from req.body
     const { user_id, comments, overall_enjoyability, tags } = req.body[1];
     const book_id = res.locals.book_id;
@@ -167,16 +204,40 @@ jointController.addRating = function(req, res, next) {
     db.query(ratingQuery, ratingParameters)
     .then((data) => {
         const retData = data.rows[0];
-
-        //Format the data
-        console.log('ADDED RATING! PRE FORMATTED: ', res.locals.genres);
+        
+        //Lets get that book again!
         retData.genre = res.locals.genres[retData.genre_id];
         retData.tags = retData.tags.split(',');
-        console.log('ADDED RATING! SENDING: ', retData);
 
-        res.locals.addedRating = retData;
-
-        next();
+        db.query('SELECT * FROM book_table WHERE book_id=' + book_id)
+        .then(bookdata => {
+            if(bookdata.rows[0]) {
+                retData.pages = bookdata.rows[0].pages;
+                retData.year = bookdata.rows[0].year;
+                retData.part_of_series = bookdata.rows[0].series;
+                retData.series_name = bookdata.rows[0].series_name;
+                retData.place_in_series = bookdata.rows[0].place_in_series;
+                retData.overall_enjoyability = bookdata.rows[0].overall_enjoyability;
+                retData.title = bookdata.rows[0].title;
+                retData.author = bookdata.rows[0].author;
+                res.locals.addedRating = retData;
+                next();
+            }
+            else {
+                console.log('BOOK DOESN\'T EXIST WITH AN ID OF: ' + book_id);
+                next({
+                    log: 'Error in middleware function: jointController.addRating',
+                    message: {err: 'Could not add rating'}
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err.message);
+            next({
+                log: 'Error in middleware function: jointController.addRating',
+                message: {err: 'Could not get book data after adding rating'}
+            });
+        })    
     }).catch((err) => {
         console.log(err.message);
         next({

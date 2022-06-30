@@ -60,7 +60,14 @@ bookController.getBooks = (req, res, next) => {
 
     db.query(bookQuery)
     .then((data) => {
-        res.locals.books = data.rows;
+        const retBooks = {};
+
+        const books = data.rows;
+        for(let i = 0; i < books.length; i++) {
+            retBooks[books[i].book_id] = books[i];
+        }
+
+        res.locals.books = retBooks;
         next();
     }).catch((err) => {
         next({

@@ -46,7 +46,6 @@ app.get('/genre', genreController.getGenres, (req, res) => {
     res.header('Access-Control-Allow-Origin', '*'); //! NEEDED to avoid CORS violations
     res.header('Access-Control-Allow-Headers', 'X-Requested-With');
     res.status(200).json(res.locals.genres);
-    console.log('==========SENT TO /genre: ', res.locals.genres);
 })
 
 /* POST Request on 'localhost:3000/addBook'
@@ -64,7 +63,7 @@ app.post('/addBook', bookController.addBook, (req, res) => {
 *   Middleware: ratingController.getRatings
 * ==================================================
 */
-app.get('/ratings', ratingController.getRatings, (req, res) => {
+app.get('/ratings', genreController.getGenres, bookController.getBooks, ratingController.getRatings, (req, res) => {
     res.status(200).json(res.locals.ratings);
 })
 
@@ -112,10 +111,14 @@ app.post('/addRating', ratingController.addRating, (req, res) => {
 *   ]
 * ==================================================
 */
-app.post('/newRating', jc.getGenres, jc.getBooks, jc.addBook, jc.addRating, (req, res) => {
+app.post('/newRating', jc.getGenres, jc.getBooks, jc.checkGenre, jc.addBook, jc.addRating, (req, res) => {
     res.status(200).json(res.locals.addedRating);
 })
 
+app.post('/addGenre', jc.getGenres, jc.checkGenre, (req, res) => {
+    console.log(`Added ${res.locals.newData} to genres table`);
+    res.status(200).json(res.locals.newGenres);
+})
 
 /*
 *   404 error handler
