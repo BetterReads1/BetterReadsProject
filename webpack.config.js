@@ -51,11 +51,6 @@ module.exports = {
           },
         ],
       },
-      // {
-      //   test: /\.svg$/i,
-      //   issuer: /\.[jt]sx?$/,
-      //   use: ['@svgr/webpack'],
-      // },
       {
         test: /\.jsx?/,
         exclude: /(node_modules|bower_components)/,
@@ -67,8 +62,6 @@ module.exports = {
         },
       },
       {
-        // test: /\.s[ac]ss$/i,
-        // test: /\.s[ac]ss$/i,
         test: /\.(s?(a|c)ss)$/i,
         use: [
           {
@@ -104,37 +97,6 @@ module.exports = {
     ],
   },
 
-  // module: {
-  //   rules: [
-  //     {
-  //       test: /\.(js|jsx)$/,
-  //       exclude: /node_module/,
-  //       use: {
-  //         loader: "babel-loader",
-  //         options: {
-  //           presets: ['@babel/preset-env', '@babel/preset-react']
-  //         },
-  //       }
-  //     },
-  //     {
-  //       test:/\.jsx?$/,
-  //       exclude:/node-module/,
-  //       use: {
-  //           loader:'babel-loader',
-  //           options:{
-  //               presets:['@babel/preset-env', '@babel/preset-react']
-  //           }
-  //       }
-  //     },
-  //     {
-  //       test: /\.css$/i,
-  //       use: [
-  //           "style-loader",
-  //           "css-loader"
-  //         ]
-  //     }
-  //   ]
-  // },
   devtool: 'inline-source-map',
   
 }

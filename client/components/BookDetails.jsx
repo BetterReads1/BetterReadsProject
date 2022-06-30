@@ -128,22 +128,25 @@ const BookDetails = () => {
           <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='inputLast' defaultValue={props.bookDetail.authorLast}></input>
         </div>
         </div>
-        {/* <span className='shadow border border-info px-3 py-1 m-50 btn-light rounded-3 bg-info bg-opacity-10 '>Howdy!</span>
-        <p className='border border-3 rounded-3 mt-2 px-2 border-info'>Howdy!</p> */}
         <div className='row'> //* 3rd row in the container
         <div className='col-md-6'>  //* 1st of 3 columns in the row using half of the available width (6 out of 12).
         <label htmlFor='selectGenre'>Genre</label>
         /*
         * ==================================================
         *   Here we create our dropdown list of genres whose
-        *   values were retrieved from the db.    
+        *   values were retrieved from the db. 
+        *
+        *   The next two lines set up the structure of the 
+        *   dropdown with <select></select> and the 
+        *   1st <option></option> (which MUST use keyword
+        *   'defaultValue' for React)      
         * ==================================================
         */
         <select id='selectGenre' className="col-md-6 form-select shadow h-50 border border-primary bg-info bg-opacity-10" aria-label="Select the Genre">
           <option className="d-flex align-items-start" defaultValue>Select the Genre</option>
           /*
           ! ==================================================
-          !   THIS pulls in all the individual <option> 
+          !   THIS pulls in all the individual <option></option> 
           !   elements from the renderGenres variable filled 
           !   out above (line 82-89)
           ! ==================================================
