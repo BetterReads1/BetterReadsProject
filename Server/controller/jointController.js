@@ -66,15 +66,25 @@ jointController.getBooks = (req, res, next) => {
 */
 jointController.addBook = (req, res, next) => {
     //Receive title and author from req.body
-    const { title, author, pages, year, genre_id, series, series_name, place_in_series } = req.body[0];
+    const { title, author, pages, year, series, series_name, place_in_series } = req.body[0];
+    let genre_id = req.body[0].genre_id;
 
     //Check if genre exists. If it doesn't, throw an error!
     if(!res.locals.genres[genre_id]) {
         console.log(genre_id + ' does not exist in: ', res.locals.genres);
-        return next({
-            log: 'Error in middleware function: jointController.addBook',
-            message: {err: `Could not add book: ${title} to database because genre_id: ${genre_id} could not be found in database!`}
-        });
+
+        const genreNames = Object.values(res.locals.genres);
+        
+        if(genreNames.includes(genre_id)) {
+            console.log(`Setting genre string ${genre_id} to ID of ${genreNames.indexOf(genre_id) + 1}`);
+            genre_id = genreNames.indexOf(genre_id) + 1;
+        }
+        else {
+            return next({
+                log: 'Error in middleware function: jointController.addBook',
+                message: {err: `Could not add book: ${title} to database because genre_id: ${genre_id} could not be found in database!`}
+            });
+        }
     }
     console.log('CONFIRMED: Genre exists!');
 
@@ -159,10 +169,12 @@ jointController.addRating = function(req, res, next) {
         const retData = data.rows[0];
 
         //Format the data
-        Console.log('ADDED RATING! PRE FORMATTED: ', retData);
-        retData.genre = res.locals.genres[retData.genre];
+        console.log('ADDED RATING! PRE FORMATTED: ', res.locals.genres);
+        retData.genre = res.locals.genres[retData.genre_id];
         retData.tags = retData.tags.split(',');
-        Console.log('ADDED RATING! SENDING: ', retData);
+        console.log('ADDED RATING! SENDING: ', retData);
+
+        res.locals.addedRating = retData;
 
         next();
     }).catch((err) => {

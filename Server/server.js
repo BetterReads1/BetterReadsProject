@@ -68,6 +68,15 @@ app.get('/ratings', ratingController.getRatings, (req, res) => {
     res.status(200).json(res.locals.ratings);
 })
 
+/* GET Request on 'localhost:3000/ratings'
+* ==================================================
+*   Middleware: ratingController.getRatingSpecific
+* ==================================================
+*/
+app.get('/ratings/:id', genreController.getGenres, ratingController.getRatingSpecific, (req, res) => {
+    res.status(200).json(res.locals.rating);
+})
+
 /* POST Request on 'localhost:3000/addRating'
 * ==================================================
 *   Middleware: ratingController.addRating
