@@ -2,58 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = 3000;
-
-app.set('db', db); //* Allows the whole app to use the db
-
-const bookRouter = require('./sampleRouterWith DB FunctionCalls.js')
-
-
-
-
-
-
-/*
-* ==================================================
-*   This block added by Jim White as sample for
-*   database integration / setup.
-* ==================================================
-*/
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use('/', express.static(path.resolve(__dirname, '/public/')));
-
-const db = require('knex')({
-  client: 'mysql2',
-  connection: {
-    host: '23.235.206.125',
-    port: 3306,
-    user: 'jimtermini_bradmin',
-    password: '123br456',
-    database: 'jimtermini_bestestreads',
-  },
-});
-
-app.set('db', db); //* Allows the whole app to use the db
-
-app.use('/book', bookRouter);
-
-//* ==================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+const cors = require('cors')
 
 /* 
 * ===================================================================
@@ -62,20 +11,21 @@ app.use('/book', bookRouter);
 */
 const ratingController = require('./controller/ratingController');
 const bookController = require('./controller/bookController');
+const genreController = require('./controller/genreController');
 
-
-/*
-* ==================================================
-*   This block added by Jim White as sample for
-*   database integration / setup.
-* ==================================================
-*/
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use('/', express.static(path.resolve(__dirname, '/public/')));
+app.use(cors());
 
-// send index.html file to base endpoint
-app.use(express.static(path.resolve(__dirname, '../dist')));
+app.use('/', express.static(path.join(__dirname, '../dist')));
+
+/* GET Request on 'localhost:3000/'
+* ==================================================
+*   Default Request
+* ==================================================
+*/
+app.get('/', (req, res) => res.sendFile(path.resolve(__dirname, '../src/index.html')));
+
 
 /* GET Request on 'localhost:3000/books'
 * ==================================================
@@ -86,6 +36,18 @@ app.get('/books', bookController.getBooks, (req, res) => {
     res.status(200).json(res.locals.books);
 })
 
+/* GET Request on 'localhost:3000/genre'
+* ==================================================
+*   Middleware: genreController.getGenres 
+* ==================================================
+*/
+app.get('/genre', genreController.getGenres, (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*'); //! NEEDED to avoid CORS violations
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+    res.status(200).json(res.locals.genres);
+    console.log('==========SENT TO /genre: ', res.locals.genres);
+})
+
 /* POST Request on 'localhost:3000/addBook'
 * ==================================================
 *   Middleware: bookController.addBook 
@@ -93,7 +55,7 @@ app.get('/books', bookController.getBooks, (req, res) => {
 * ==================================================
 */
 app.post('/addBook', bookController.addBook, (req, res) => {
-    res.status(200).send('Successfully added book!');
+    res.status(200).json(res.locals.books);
 })
 
 /* GET Request on 'localhost:3000/ratings'
@@ -116,8 +78,6 @@ app.post('/addRating', ratingController.addRating, (req, res) => {
 })
 
 
-
-
 /*
 *   404 error handler
 */
@@ -138,8 +98,6 @@ app.use((err, req, res, next) => {
     console.log(errorObj.log);
     return res.status(errorObj.status).json(errorObj.message)
 })
-
-
 
 /*
 *   Listening to port

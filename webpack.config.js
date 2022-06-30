@@ -5,6 +5,8 @@ module.exports = {
   mode: 'development',
   entry: './client/index.js',
   // entry: path.join(__dirname, "client", "index.js"),
+
+  target: 'web',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
@@ -98,5 +100,4 @@ module.exports = {
   },
 
   devtool: 'inline-source-map',
-  
 }
