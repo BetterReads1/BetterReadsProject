@@ -5,7 +5,8 @@
   "main": "index.js",
   "proxy": "http://localhost:8080",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "concurrently \"psql -d postgres://gistckhn:tAutvlvUXzQqK79XVvYhYfil1e-spECd@heffalump.db.elephantsql.com/gistckhn -f Server/Models/db_setup.sql\" \"jest\"",
+    "start-test": "NODE_ENV=test nodemon Server/server.js",
     "start": "nodemon Server/server.js",
     "dev": "webpack serve",
     "build": "webpack"
@@ -18,18 +19,14 @@
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
     "babel-loader": "^8.2.5",
-    "css-loader": "^6.7.1",
-    "html-webpack-plugin": "^5.5.0",
-    "jest": "^28.1.1",
-    "sass": "^1.53.0",
-    "sass-loader": "^13.0.1",
-    "style-loader": "^3.3.1",
-    "webpack": "^5.73.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.9.2",
+    "concurrently": "^7.2.2",
     "cross-env": "^7.0.3",
+    "css-loader": "^6.7.1",
+    "dotenv": "^16.0.1",
     "eslint": "^8.18.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "html-webpack-plugin": "^5.5.0",
+    "jest": "^28.1.1",
     "prettier": "^2.7.1",
     "prettier-eslint": "^15.0.1",
     "prettier-plugin-organize-imports": "^3.0.0",
@@ -45,23 +42,16 @@
     "redux-devtools-extension": "^2.13.9",
     "remixicon": "^2.5.0",
     "remixicon-react": "^1.0.0",
-    "svg-url-loader": "^7.1.1"
+    "sass": "^1.53.0",
+    "sass-loader": "^13.0.1",
+    "style-loader": "^3.3.1",
+    "supertest": "^6.2.3",
+    "svg-url-loader": "^7.1.1",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.2"
   },
-
   "dependencies": {
-    "axios": "^0.27.2",
-    "cors": "^2.8.5",
-    "express": "^4.18.1",
-    "node": "^18.4.0",
-    "node-postgres": "^0.6.2",
-    "nodemon": "^2.0.18",
-    "pg": "^8.7.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.3.0",
-    "file-loader": "^6.2.0",
-    "knex": "^2.1.0",
-    "mysql2": "^2.3.3",
     "@reduxjs/toolkit": "^1.8.2",
     "@svgr/webpack": "^6.2.1",
     "@testing-library/jest-dom": "^5.16.4",
@@ -75,9 +65,22 @@
     "@tiptap/react": "^2.0.0-beta.113",
     "@tiptap/starter-kit": "^2.0.0-beta.189",
     "autoprefixer": "^10.4.7",
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "bootstrap": "^5.1.3",
-    "css-loader": "^6.7.1"
+    "cors": "^2.8.5",
+    "css-loader": "^6.7.1",
+    "express": "^4.18.1",
+    "file-loader": "^6.2.0",
+    "knex": "^2.1.0",
+    "mysql2": "^2.3.3",
+    "node": "^18.4.0",
+    "node-postgres": "^0.6.2",
+    "nodemon": "^2.0.18",
+    "pg": "^8.7.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0"
   },
   "eslintConfig": {
     "extends": [
@@ -85,5 +88,4 @@
       "react-app/jest"
     ]
   }
-
 }

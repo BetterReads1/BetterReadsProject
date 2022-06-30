@@ -1,5 +1,4 @@
-const { nextTick } = require('process');
-const db = require('../Models/sqldb');
+const db = require('../Models/bbrModel');
 
 const bookController = {};
 
@@ -12,21 +11,35 @@ const bookController = {};
 */
 bookController.addBook = (req, res, next) => {
     //Receive title and author from req.body
-    const { title, author } = req.body;
+    const { title, author, pages, year, genre_id, series, series_name, place_in_series } = req.body;
 
     //Generate book id
-    const bookid = helper_CreateBookID();
+    const book_id = helper_CreateBookID();
+    // console.log('=================GENRE ID INSERTING: ', genre);
 
-    //Book add query
-    const bookQuery = `INSERT INTO book_table (title, author, book_id) VALUES ($1, $2, $3) RETURNING *` 
-    const bookParameters = [title, author, bookid];
+    //Maybe we should check if genreId exists already first in the genre table
+
+    //Book add query // !Front end should send genre id
+    const bookQuery = `INSERT INTO book_table (book_id, title, author, pages, year, genre_id, series, series_name, place_in_series) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)` 
+    const bookParameters = [book_id, title, author, pages, year, genre_id, series, series_name, place_in_series];
 
     //Adds book title and author to DB if it doesn't already exist
     db.query(bookQuery, bookParameters)
     .then((data) => {
-        console.log('Data after addBook: ', data.rows);
-        next();
+        db.query('SELECT * FROM book_table')
+        .then((data) => {
+            res.locals.books = data.rows;
+            next();
+        })
+        .catch((err) => {
+            console.log(err.message);
+            next({
+                log: 'Error in middleware function: bookController.addBook',
+                message: {err: `Could not add book: ${title} to database.`}
+            });
+        });
     }).catch((err) => {
+        console.log(err.message);
         next({
             log: 'Error in middleware function: bookController.addBook',
             message: {err: `Could not add book: ${title} to database.`}
@@ -47,7 +60,6 @@ bookController.getBooks = (req, res, next) => {
 
     db.query(bookQuery)
     .then((data) => {
-        console.log('Data after getBooks: ', data.rows);
         res.locals.books = data.rows;
         next();
     }).catch((err) => {
@@ -76,7 +88,8 @@ bookController.filterBooks = (req, res, next) => {
 }
 
 const helper_CreateBookID = function() {
-    return 515151;
+    // const uniqueId = 
+    return Number(Math.floor(Math.random() * 999).toString() + Math.floor(Math.random() * 999).toString());
 }
 
 module.exports = bookController;

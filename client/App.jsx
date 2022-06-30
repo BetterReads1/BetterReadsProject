@@ -3,6 +3,14 @@ import MainContainer from './MainContainer.jsx'
 
 class App extends Component {
 
+  componentDidMount() {
+    fetch('http://localhost:3000/genre')
+    .then(data => data.json())
+    .then((data) => {
+      console.log(data);
+    })
+  }
+
   render() {
     return (
       <div id="App">
@@ -10,6 +18,6 @@ class App extends Component {
       </div>
     );
   }
-};
+}
 
 export default App;
