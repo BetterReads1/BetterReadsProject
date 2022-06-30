@@ -14,11 +14,11 @@ bookController.addBook = (req, res, next) => {
     const { title, author } = req.body;
 
     //Generate book id
-    const bookid = helper_CreateBookID();
+    const book_id = helper_CreateBookID();
 
     //Book add query
     const bookQuery = `INSERT INTO book_table (title, author, book_id) VALUES ($1, $2, $3) RETURNING *` 
-    const bookParameters = [title, author, bookid];
+    const bookParameters = [title, author, book_id];
 
     //Adds book title and author to DB if it doesn't already exist
     db.query(bookQuery, bookParameters)
@@ -75,7 +75,7 @@ bookController.filterBooks = (req, res, next) => {
 }
 
 const helper_CreateBookID = function() {
-    return 515151;
+    return Number(Math.floor(Math.random(0, 99999)).toString() + Math.floor(Math.random(0, 99999)).toString());
 }
 
 module.exports = bookController;
