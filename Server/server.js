@@ -11,12 +11,17 @@ const port = 3000;
 const ratingController = require('./controller/ratingController');
 const bookController = require('./controller/bookController');
 
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/', express.static(path.join(__dirname, '../dist')));
-app.use('/', (req, res) => res.sendFile(path.resolve(__dirname, '../src/index.html')));
+
+/* GET Request on 'localhost:3000/'
+* ==================================================
+*   Default Request
+* ==================================================
+*/
+app.get('/', (req, res) => res.sendFile(path.resolve(__dirname, '../src/index.html')));
 
 
 /* GET Request on 'localhost:3000/books'

@@ -1,5 +1,5 @@
--- psql -d <url from elephantSQL> -f [/sqlFilename]
--- DROP TABLE user_table, genre_table, book_table, rating_table;
+-- psql -d <url from elephantSQL> -f Server/Models/db_setup.sql
+DROP TABLE user_table, genre_table, book_table, rating_table;
 
 CREATE TABLE user_table (
     "user_id" serial PRIMARY KEY NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE book_table (
     "title" varchar,
     "author" varchar,
     "pages" integer,
-    "year" DATE,
+    "year" integer,
     "series" boolean,
     "series_name" varchar,
     "place_in_series" integer,
@@ -37,4 +37,3 @@ CREATE TABLE rating_table (
     CONSTRAINT "fk2_rating" FOREIGN KEY ("user_id") REFERENCES user_table("user_id"),
     CONSTRAINT "fk3_rating" FOREIGN KEY ("genre_id") REFERENCES genre_table("genre_id") 
 ) WITH (OIDS=FALSE);
-

@@ -6,6 +6,7 @@
   "proxy": "http://localhost:8080",
   "scripts": {
     "test": "jest",
+    "start-test": "NODE_ENV=test nodemon Server/server.js",
     "start": "nodemon Server/server.js",
     "dev": "webpack serve",
     "build": "webpack"
