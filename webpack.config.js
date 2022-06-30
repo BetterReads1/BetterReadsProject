@@ -15,7 +15,8 @@ module.exports = {
 
   plugins: [  
     new HtmlWebpackPlugin({
-     template: './client/index.html',
+      inject: false,
+      template: './client/index.html',
     //  template: path.join(__dirname, "client", "index.html"),
     }),
   ],
