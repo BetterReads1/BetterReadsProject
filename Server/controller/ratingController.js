@@ -53,7 +53,7 @@ ratingController.getRatings = function(req, res, next) {
             const r = ratings[i];
             const retData = {...r};
             console.log('===============trying to get ' + retData.genre_id + ' from ', res.locals.genres);
-            retData.genre = res.locals.genres[retData.genre_id];
+            retData.genre = res.locals.genres[retData.genre_id - 1];
             retData.tags = retData.tags.split(',');
 
             if(books[r.book_id]) {

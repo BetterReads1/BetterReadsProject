@@ -206,7 +206,7 @@ jointController.addRating = function(req, res, next) {
         const retData = data.rows[0];
         
         //Lets get that book again!
-        retData.genre = res.locals.genres[retData.genre_id];
+        retData.genre = res.locals.genres[retData.genre_id - 1];
         retData.tags = retData.tags.split(',');
 
         db.query('SELECT * FROM book_table WHERE book_id=' + book_id)
