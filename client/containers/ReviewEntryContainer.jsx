@@ -1,6 +1,6 @@
 // import {useDispatch, useSelector} from 'react-redux';
 // import { loadTicket } from '../actions/actions.js';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import CustomerAppDateTime from '../components/customerAppDateTime.jsx';
 import BookDetails from '../components/BookDetails.jsx';
 // import TicketNotes from '../components/customerNotes.jsx';
@@ -36,6 +36,52 @@ const ReviewEntryContainer = (props) => {
   // }
 
   //render() {
+/*
+* ==================================================
+*   Function to Read the current values in the form
+* ==================================================
+*/
+  
+  let myLivingContent = "";
+function getReviewDets() {
+  let daDeets = {}
+  daDeets.title = document.getElementById('bookTitle').value;
+  daDeets.author = document.getElementById('inputLast').value + ", " + document.getElementById('inputFirst').value;
+  daDeets.pages = document.getElementById('inputPages').value;
+  daDeets.year = Number(document.getElementById('inputYear').value);
+  daDeets.genre = document.getElementById('selectGenre').value;
+  daDeets.series_name = document.getElementById('partOfSeries').value;
+  daDeets.series_name = document.getElementById('seriesName').value;
+  daDeets.place_in_series = 3;
+
+  let reviewDeets = {}
+  reviewDeets.user_id = 0;
+  reviewDeets.comments = document.getElementById('editcon').children[1].children[0].innerHTML;
+  reviewDeets.overall_enjoyability = 5;
+  reviewDeets.tags = ['good','bad', 'ugly'];
+
+  const myPostBody = [daDeets, reviewDeets]
+  console.log('🔴🟠🟡🟢🔵🟣 | file: ReviewEntryContainer.jsx | line 64 | getReviewDets | myPostBody', myPostBody);
+
+  
+  
+  // useEffect(() => {
+    fetch('http://localhost:3000/newRating', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(myPostBody)
+})
+      .then(response => response.json())
+      .then(data => {
+      console.log('🔴🟠🟡🟢🔵🟣 | file: ReviewEntryContainer.jsx | line 80 | useEffect | data', data);
+        return data;  
+      })
+      .then(data => { setBookGenres([...data]) });
+  
+  return daDeets;
+}
 
   //console.log('🔴🟠🟡🟢🔵🟣 | file: ReviewEntryContainer.jsx | line 24 | ReviewEntryContainer | render | this.props.customerDetail', this);
   return (
@@ -54,9 +100,14 @@ const ReviewEntryContainer = (props) => {
                               </div>
 
                               <div className='customerNotes'>
-                                <CreateReviewWrittenBits  />
+                                <CreateReviewWrittenBits  daContent={myLivingContent}/>
                                 {/* <CreateReviewWrittenBits customerNotes={customerNotes} /> */}
-                              </div>
+            </div>
+            <button onClick={() => {
+              let reviewDeets = getReviewDets();
+              console.log('🔴🟠🟡🟢🔵🟣 | file: ReviewEntryContainer.jsx | line 62 | //render | reviewDeets', reviewDeets);
+
+            }} className='btn btn-primary mt-3 shadow col-3'>Submit My Review</button>
                             </div>
                     </div>
 

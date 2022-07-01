@@ -14,7 +14,6 @@
 
 // const BookDetails = (props) => {
 const BookDetails = () => {
-  // class BookDetail extends Component {
 
   
   const [bookGenres, setBookGenres] = useState([])
