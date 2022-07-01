@@ -52,7 +52,7 @@ function getReviewDets() {
   daDeets.genre = document.getElementById('selectGenre').value;
   daDeets.series_name = document.getElementById('partOfSeries').value;
   daDeets.series_name = document.getElementById('seriesName').value;
-  daDeets.place_in_series = 3;
+  daDeets.place_in_series = Number(document.getElementById('seriesNum').value);
 
   let reviewDeets = {}
   reviewDeets.user_id = 0;
@@ -94,15 +94,12 @@ function getReviewDets() {
                                 {/* <BookDetails customerDetail={customerDetail} /> */}
                               </div>
 
-                              <div className='customerAppDateTime'>
-                                <CustomerAppDateTime  />
-                                {/* <CustomerAppDateTime customerDetail={customerDetail} /> */}
-                              </div>
 
                               <div className='customerNotes'>
                                 <CreateReviewWrittenBits  daContent={myLivingContent}/>
                                 {/* <CreateReviewWrittenBits customerNotes={customerNotes} /> */}
             </div>
+
             <button onClick={() => {
               let reviewDeets = getReviewDets();
               console.log('🔴🟠🟡🟢🔵🟣 | file: ReviewEntryContainer.jsx | line 62 | //render | reviewDeets', reviewDeets);

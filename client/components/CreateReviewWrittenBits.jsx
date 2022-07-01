@@ -64,16 +64,49 @@ const CreateReviewWrittenBits = (props) => {
 
   return (
     <div className='container border border-3 rounded-3 mt-2 p-2 border-info shadow'>
-      <div id="editcon" className='editor'>
-        {editor && <MenuBar editor={editor} />}
-        <EditorContent
-          className='editor__content container border border-3 rounded-3 mt-2 p-2 border-info shadow'
-          editor={editor}
-        />
+            <div className='row'>     { /* 1st row in the container */ }
+
+      
+                <div id="editcon" className='editor'>
+                  {editor && <MenuBar editor={editor} />}
+                  <EditorContent
+                    className='editor__content container border border-3 rounded-3 mt-2 p-2 border-info shadow'
+                    editor={editor}
+                  />
+                </div>
+        <div className='container row  mt-2 px-2'>
+        <div className='row'>    
+<div className='col-md-8'>  
+      <label htmlFor='bookTags'>Tags (separated by commas)</label>
+      <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='bookTags' defaultValue=" "></input>
+</div>
+<div className='col-md-4'>  
+      <label htmlFor='bookRating'>Rating</label>
+      <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='bookRating' defaultValue=" "></input>
+</div>
+</div>
+        </div>
       </div>
+      
+
+
+
+
+
+
+
+
+
+      
     </div>
   );
 };
+
+
+
+
+
+
 
 export default CreateReviewWrittenBits;
 
