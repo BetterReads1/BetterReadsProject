@@ -12,6 +12,7 @@ const cors = require('cors')
 const ratingController = require('./controller/ratingController');
 const bookController = require('./controller/bookController');
 const genreController = require('./controller/genreController');
+const jc = require('./controller/jointController');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -67,6 +68,15 @@ app.get('/ratings', ratingController.getRatings, (req, res) => {
     res.status(200).json(res.locals.ratings);
 })
 
+/* GET Request on 'localhost:3000/ratings'
+* ==================================================
+*   Middleware: ratingController.getRatingSpecific
+* ==================================================
+*/
+app.get('/ratings/:id', genreController.getGenres, ratingController.getRatingSpecific, (req, res) => {
+    res.status(200).json(res.locals.rating);
+})
+
 /* POST Request on 'localhost:3000/addRating'
 * ==================================================
 *   Middleware: ratingController.addRating
@@ -75,6 +85,35 @@ app.get('/ratings', ratingController.getRatings, (req, res) => {
 */
 app.post('/addRating', ratingController.addRating, (req, res) => {
     res.status(200).send('Successfully added rating!');
+})
+
+/* POST Request on 'localhost:3000/newRating'
+* ==================================================
+*   Middleware: jointController, various
+*   Expecting req.body from client formatted like: 
+*   [
+*       {
+*           "title": "The Apple Story",
+*           "author": "Ian Grepo",
+*           "pages": 445,
+*           "year": "2018",
+*           "genre_id": 1,
+*           "series": false,
+*           "series_name": "",
+*           "place_in_series": 0
+*       },
+
+*       {
+*           "user_id": 0,
+*           "comments": "What?",
+*           "overall_enjoyability": 1,
+*           "tags": ["stupid", "dumb"]
+*        }
+*   ]
+* ==================================================
+*/
+app.post('/newRating', jc.getGenres, jc.getBooks, jc.addBook, jc.addRating, (req, res) => {
+    res.status(200).json(res.locals.addedRating);
 })
 
 

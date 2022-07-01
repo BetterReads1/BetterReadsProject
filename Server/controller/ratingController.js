@@ -55,8 +55,45 @@ ratingController.getRatings = function(req, res, next) {
     });
 }
 
+/*
+* ==================================================
+*   PREV: None
+*   Get specific rating from table based on ID
+*   NEXT: None
+* ==================================================
+*/
+ratingController.getRatingSpecific = function(req, res, next) {
+    const ratingId = req.params.id;
+    const ratingQuery = `SELECT * FROM rating_table WHERE rating_id=${ratingId}`
+
+    db.query(ratingQuery)
+    .then((data) => {
+        if(data.rows.length === 0) {
+            console.log(`${ratingId} does not exist!`);
+            next({
+                log: 'Error in middleware function: ratingController.getRatingSpecific',
+                message: {err: `${ratingId} does not exist!`}
+            });
+        }
+        else {
+            const retData = data.rows[0];
+
+            retData.genre = res.locals.genres[retData.genre_id - 1];
+            retData.tags = retData.tags.split(',');
+
+            res.locals.rating = retData;
+            next();
+        }  
+    }).catch((err) => {
+        next({
+            log: 'Error in middleware function: ratingController.getRatingSpecific',
+            message: {err: 'Error getting rating'}
+        });
+    });
+}
+
 const helper_CreateRatingID = function() {
-    return 0;
+    return Number(Math.floor(Math.random() * 999).toString() + Math.floor(Math.random() * 999).toString());
 }
 
 module.exports = ratingController;
