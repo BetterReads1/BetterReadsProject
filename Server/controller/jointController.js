@@ -219,6 +219,11 @@ jointController.addRating = function(req, res, next) {
                 retData.place_in_series = bookdata.rows[0].place_in_series;
                 retData.title = bookdata.rows[0].title;
                 retData.author = bookdata.rows[0].author;
+
+                if(res.locals.users && res.locals.users[retData.user_id]) {
+                    retData.username = res.locals.users[retData.user_id];
+                }
+                
                 res.locals.addedRating = retData;
                 next();
             }

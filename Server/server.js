@@ -63,7 +63,7 @@ app.post('/addBook', bookController.addBook, (req, res) => {
 *   Middleware: ratingController.getRatings
 * ==================================================
 */
-app.get('/ratings', genreController.getGenres, bookController.getBooks, ratingController.getRatings, (req, res) => {
+app.get('/ratings', genreController.getGenres, bookController.getBooks, ratingController.getUsers, ratingController.getRatings, (req, res) => {
     res.status(200).json(res.locals.ratings);
 })
 
@@ -111,7 +111,7 @@ app.post('/addRating', ratingController.addRating, (req, res) => {
 *   ]
 * ==================================================
 */
-app.post('/newRating', jc.getGenres, jc.getBooks, jc.checkGenre, jc.addBook, jc.addRating, (req, res) => {
+app.post('/newRating', jc.getGenres, jc.getBooks, jc.checkGenre, jc.addBook, ratingController.getUsers, jc.addRating, (req, res) => {
     res.status(200).json(res.locals.addedRating);
 })
 

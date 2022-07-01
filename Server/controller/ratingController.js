@@ -32,6 +32,26 @@ ratingController.addRating = function(req, res, next) {
     });
 }
 
+ratingController.getUsers = function(req, res, next) {
+    const userQuery = `SELECT * FROM user_table`
+
+    db.query(userQuery)
+    .then(data => {
+        const users = data.rows;
+        const keys = Object.keys(users);
+
+        const retUsers = {};
+
+        for(let i = 0; i < users.length; i++) {
+            const user = users[i];
+            retUsers[user.user_id] = user.username;
+        }
+
+        res.locals.users = retUsers;
+        next();
+    })
+}
+
 /*
 * ==================================================
 *   PREV: None
@@ -64,6 +84,10 @@ ratingController.getRatings = function(req, res, next) {
                 retData.place_in_series = books[r.book_id].place_in_series;
                 retData.title = books[r.book_id].title;
                 retData.author = books[r.book_id].author;
+            }
+
+            if(res.locals.users[r.user_id]) {
+                retData.username = res.locals.users[r.user_id];
             }
             
             retArray.push(retData);
