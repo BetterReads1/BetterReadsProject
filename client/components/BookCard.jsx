@@ -1,59 +1,95 @@
 import React from 'react';
-import styles from '../_custom.scss'
+import styles from '../_custom.scss';
 
-const BookCard = (props) => {
+const BookCard = (bookinfo) => {
+  console.log(bookinfo);
 
+// const { 
+//   author, 
+//   book_id, 
+//   genre_id, 
+//   pages, 
+//   place_in_series, 
+//   series, 
+//   series_name,
+//   title, 
+//   year
+// } = bookinfo.bookinfo;
 
+  const { 
+    title,
+    author,
+    username,
+    genre, 
+    pages, 
+    year, 
+    part_of_series, 
+    series_name, 
+    place_in_series, 
+    overall_enjoyability, 
+    tags, 
+    comments,
+  } = bookinfo.bookinfo;
 
-  
   return (
-   
-    
-    <div id='book-card' className='container col-md-3 border shadow border-info'>
-      <img src="/./books.jpeg"></img>
-     
-      
+    <div className='book-card container col-md-3 border shadow border-info'>
       <div className = "card-body card-title text-center pt-2">
-        <strong>Title by Author</strong>
+        <strong>{title}</strong> by <strong>{author}</strong>
+      </div>
+
+      <div className ="row">
+        <div className ="align-items-center col-md-6 text-end border"><strong>User</strong></div>
+        <div className = "border d-flex align-items-center best-value col-md-6 text-start ">{username}</div>
+      </div>
+
+      <div className ="row">
+        <div className ="align-items-center col-md-6 text-end border"><strong>Rating</strong></div>
+        <div className = "border d-flex align-items-center best-value col-md-6 text-start ">{overall_enjoyability}</div>
+      </div>
+      
+      <div className ="row">
+        <div className ="align-items-center col-md-6 text-end border"><strong>Genre</strong></div>
+        <div className = "border best-value col-md-6 text-start">{genre}</div>
+      </div>
+
+      <div className ="row">
+        <div className ="align-items-center col-md-6 text-end border"><strong>Pages</strong></div>
+        <div className = "border best-value col-md-6 text-start">{pages}</div>
+      </div>
+
+      <div className ="row">
+        <div className ="align-items-center col-md-6 text-end  border"><strong>Year</strong></div>
+        <div className = "border d-flex align-items-center best-value col-md-6 text-start  border">{year}</div>
+      </div>
+
+      <div className ="row">
+        <div className ="w-100"></div>
+        <div className ="align-items-center col-md-6 text-end border"><strong>Part of Series</strong></div>
+        <div className = "border d-flex align-items-center best-value col-md-6 text-start ">{part_of_series ? 'Yes' : 'No'}</div>
+      </div>
+
+      <div className ="row">
+        <div className ="align-items-center col-md-6 text-end border"><strong>Series</strong></div>
+        <div className = "border d-flex align-items-center best-value col-md-6 text-start ">{series_name}</div>
+      </div>
+
+      <div className ="row">
+        <div className ="align-items-center col-md-6 text-end border"><strong>Place in series </strong></div>
+        <div className = "border d-flex align-items-center best-value col-md-6 text-start "> {place_in_series}</div>
+      </div>
+
+      <div className ="row">
+        <div className ="align-items-center col-md-12 text-center border">
+          {/* <strong>tag1, tag2, tag3</strong> */}
+          <strong>{tags[0]}, {tags[1]} {tags[2]}</strong>
         </div>
-       
-        
-      <div className ="row">
-      <div className ="align-items-center col-md-6 text-end  border"><strong>Genre:</strong></div>
-      <div class = "best-value" className = "border best-value col-md-6 text-start ">Horror</div>
+      </div>
       
-      </div>
-      <div className ="row">
-      <div className ="align-items-center col-md-6 text-end  border"><strong>Pages:</strong></div>
-      <div class = "best-value" className = "border best-value col-md-6 text-start ">397</div>
-      </div>
-      <div className ="row align-middle">
-      <div className ="align-items-center col-md-6 text-end  border"><strong>Year Published:</strong></div>
-      <div class = "best-value" className = "border d-flex align-items-center best-value col-md-6 text-start  border">1977</div>
-      </div>
-      <div className ="d-flex row align-middle">
-      <div className ="w-100"></div>
-      <div className ="align-items-center col-md-6 text-end border"><strong>Part of Series:</strong></div>
-      <div class = "best-value" className = "border d-flex align-items-center best-value col-md-6 text-start ">Harry Potter and the Order of the Phoenix</div>
-      </div>
-      <div className ="row align-middle">
-      <div className ="align-items-center col-md-6 text-end border"><strong>Series Name: </strong></div>
-      <div class = "best-value" className = "border d-flex align-items-center best-value col-md-6 text-start ">Harry Potter</div>
-      </div>
-      <div className ="row align-middle">
-      <div className ="align-items-center col-md-6 text-end border"><strong>Place in Series:</strong></div>
-      <div class = "best-value" className = "border d-flex align-items-center best-value col-md-6 text-start ">5</div>
-      </div>
-      <div className ="row align-middle">
-      <div className ="align-items-center col-md-6 text-end border"><strong>Rating:</strong></div>
-      <div class = "best-value" className = "border d-flex align-items-center best-value col-md-6 text-start ">4 stars</div>
-      </div>
       <div className ="card-body">
-      <p className="card-text">Fantastic book. I was on the edge of my seat the entire time. I can't believe Harry Potter defeated Gandalf to become a Sith Lord.</p>
+        {/* <p className="card-text">Fantastic book. I was on the edge of my seat the entire time. I can't believe Harry Potter defeated Gandalf to become a Sith Lord.</p> */}
+        <p className="card-text">{comments}</p>
       </div>
-      
-      
-      </div>
+    </div>
 )};
 
 export default BookCard;

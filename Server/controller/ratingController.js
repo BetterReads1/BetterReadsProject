@@ -32,6 +32,26 @@ ratingController.addRating = function(req, res, next) {
     });
 }
 
+ratingController.getUsers = function(req, res, next) {
+    const userQuery = `SELECT * FROM user_table`
+
+    db.query(userQuery)
+    .then(data => {
+        const users = data.rows;
+        const keys = Object.keys(users);
+
+        const retUsers = {};
+
+        for(let i = 0; i < users.length; i++) {
+            const user = users[i];
+            retUsers[user.user_id] = user.username;
+        }
+
+        res.locals.users = retUsers;
+        next();
+    })
+}
+
 /*
 * ==================================================
 *   PREV: None
@@ -45,7 +65,34 @@ ratingController.getRatings = function(req, res, next) {
     db.query(ratingQuery)
     .then((data) => {
         console.log('Data after ratingQuery: ', data.rows); // TESTING
-        res.locals.ratings = data.rows;
+
+        const ratings = data.rows;
+        const books = res.locals.books;
+        const retArray = [];
+        for(let i = 0; i < ratings.length; i++) {
+            const r = ratings[i];
+            const retData = {...r};
+            console.log('===============trying to get ' + retData.genre_id + ' from ', res.locals.genres);
+            retData.genre = res.locals.genres[retData.genre_id - 1];
+            retData.tags = retData.tags.split(',');
+
+            if(books[r.book_id]) {
+                retData.pages = books[r.book_id].pages;
+                retData.year = books[r.book_id].year;
+                retData.part_of_series = books[r.book_id].series;
+                retData.series_name = books[r.book_id].series_name;
+                retData.place_in_series = books[r.book_id].place_in_series;
+                retData.title = books[r.book_id].title;
+                retData.author = books[r.book_id].author;
+            }
+
+            if(res.locals.users[r.user_id]) {
+                retData.username = res.locals.users[r.user_id];
+            }
+            
+            retArray.push(retData);
+        }
+        res.locals.ratings = retArray;
         next();
     }).catch((err) => {
         next({
@@ -55,8 +102,45 @@ ratingController.getRatings = function(req, res, next) {
     });
 }
 
+/*
+* ==================================================
+*   PREV: None
+*   Get specific rating from table based on ID
+*   NEXT: None
+* ==================================================
+*/
+ratingController.getRatingSpecific = function(req, res, next) {
+    const ratingId = req.params.id;
+    const ratingQuery = `SELECT * FROM rating_table WHERE rating_id=${ratingId}`
+
+    db.query(ratingQuery)
+    .then((data) => {
+        if(data.rows.length === 0) {
+            console.log(`${ratingId} does not exist!`);
+            next({
+                log: 'Error in middleware function: ratingController.getRatingSpecific',
+                message: {err: `${ratingId} does not exist!`}
+            });
+        }
+        else {
+            const retData = data.rows[0];
+
+            retData.genre = res.locals.genres[retData.genre_id - 1];
+            retData.tags = retData.tags.split(',');
+
+            res.locals.rating = retData;
+            next();
+        }  
+    }).catch((err) => {
+        next({
+            log: 'Error in middleware function: ratingController.getRatingSpecific',
+            message: {err: 'Error getting rating'}
+        });
+    });
+}
+
 const helper_CreateRatingID = function() {
-    return 0;
+    return Number(Math.floor(Math.random() * 999).toString() + Math.floor(Math.random() * 999).toString());
 }
 
 module.exports = ratingController;
