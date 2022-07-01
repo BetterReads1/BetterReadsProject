@@ -10,14 +10,9 @@
  */
 //  import { Editor } from '@tiptap/core'
 import React from 'react';
-import CharacterCount from '@tiptap/extension-character-count';
-import Document from '@tiptap/extension-document';
-import Heading from '@tiptap/extension-heading';
 import Highlight from '@tiptap/extension-highlight';
-import Paragraph from '@tiptap/extension-paragraph';
 import TaskItem from '@tiptap/extension-task-item';
 import TaskList from '@tiptap/extension-task-list';
-import Text from '@tiptap/extension-text';
 import TextAlign from '@tiptap/extension-text-align';
 import StarterKit from '@tiptap/starter-kit';
 
@@ -32,46 +27,26 @@ import '../_custom.scss';
 import MenuBar from './MenuBar.jsx';
 
 const CreateReviewWrittenBits = (props) => {
-  // class CreateReview extends Component {
 
   const editor = useEditor({
     extensions: [
       StarterKit,
-      Document,
-      Heading,
-      Paragraph,
-      Text,
       TextAlign.configure({
         types: ['heading', 'paragraph'],
         alignments: ['left', 'center', 'right'],
       }),
-      // Placeholder.configure({
-      //   // Use a placeholder:
-      //   placeholder: 'Write your review here …',
-      //   // Use different placeholders depending on the node type:
-      //   // placeholder: ({ node }) => {
-      //   //   if (node.type.name === 'heading') {
-      //   //     return 'What’s the title?'
-      //   //   }
-
-      //   //   return 'Can you add some further context?'
-      //   // },
-      // }),
       Highlight.configure({multicolor: true}),
       TaskList,
       TaskItem,
-      CharacterCount.configure({
-        limit: 10000,
-      }),
     ],
     content: `
-    Please enter your review here...
+    Please enter your review there...
 
 
 
 
 
-
+.
   `,
   });
 
@@ -89,16 +64,49 @@ const CreateReviewWrittenBits = (props) => {
 
   return (
     <div className='container border border-3 rounded-3 mt-2 p-2 border-info shadow'>
-      <div className='editor'>
-        {editor && <MenuBar editor={editor} />}
-        <EditorContent
-          className='editor__content container border border-3 rounded-3 mt-2 p-2 border-info shadow'
-          editor={editor}
-        />
+            <div className='row'>     { /* 1st row in the container */ }
+
+      
+                <div id="editcon" className='editor'>
+                  {editor && <MenuBar editor={editor} />}
+                  <EditorContent
+                    className='editor__content container border border-3 rounded-3 mt-2 p-2 border-info shadow'
+                    editor={editor}
+                  />
+                </div>
+        <div className='container row  mt-2 px-2'>
+        <div className='row'>    
+<div className='col-md-8'>  
+      <label htmlFor='bookTags'>Tags (separated by commas)</label>
+      <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='bookTags' defaultValue=" "></input>
+</div>
+<div className='col-md-4'>  
+      <label htmlFor='bookRating'>Rating</label>
+      <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='bookRating' defaultValue=" "></input>
+</div>
+</div>
+        </div>
       </div>
+      
+
+
+
+
+
+
+
+
+
+      
     </div>
   );
 };
+
+
+
+
+
+
 
 export default CreateReviewWrittenBits;
 

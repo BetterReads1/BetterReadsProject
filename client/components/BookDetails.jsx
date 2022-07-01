@@ -62,7 +62,9 @@ const BookDetails = () => {
   }, [])
   
   
-  /*
+
+
+/*
   * ==================================================
   *   Next We want to render multiple copies of an
   *   HTML element, each with a unique value that was
@@ -113,18 +115,18 @@ const BookDetails = () => {
       <div className="container"> { /* Second container Inner */ }
         <div className='row'>     { /* 1st row in the container */ }
         <div className='col-md-12'>   { /* Which contains a single column taking the entire width (12 out of 12) */ }
-          <label htmlFor='bookTitle'>Title</label>
+          <label htmlFor='bookTitle'>Book Title</label>
           <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='bookTitle' defaultValue={props.bookDetail.title}></input>
         </div>
       </div>
 
       <div className='row'>   { /* 2nd row in the container */ }
         <div className='col-md-6'>  { /* 1st column in the row using half of the available width (6 out of 12) */ }
-          <label htmlFor='inputFirst'>First</label>
+          <label htmlFor='inputFirst'>Author's First</label>
           <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='inputFirst' defaultValue={props.bookDetail.authorFirst}></input>
         </div>
         <div className='col-md-6'>  { /* 2nd column in the row using half of the available width (6 out of 12) */ }
-          <label htmlFor='inputLast'>Last</label>
+          <label htmlFor='inputLast'>Author's Last</label>
           <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='inputLast' defaultValue={props.bookDetail.authorLast}></input>
         </div>
         </div>
@@ -159,26 +161,33 @@ const BookDetails = () => {
         </select>
       </div>
         <div className='col-md-3'>  { /* 2nd of 3 columns in the row using 3/12 of the width. */ }
-          <label htmlFor='inputPhone'>Pages</label>
-          <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='inputPhone' defaultValue={props.bookDetail.pages}></input>
+          <label htmlFor='inputPages'>Pages</label>
+          <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='inputPages' defaultValue={props.bookDetail.pages}></input>
         </div>
         <div className='col-md-3'>  { /* 3rd of 3 columns in the row using 3/12 of the width. */ }
-          <label htmlFor='inputEmail'>Year Published</label>
-          <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='inputEmail' defaultValue={props.bookDetail.yearPublished}></input>
+          <label htmlFor='inputYear'>Year Published</label>
+          <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='inputYear' defaultValue={props.bookDetail.yearPublished}></input>
         </div>
-      </div>
-      <div className='row'>  { /* 4th row in the container */ }
-        <div className='col-md-2'> { /* 1st of 2 columns using 2/12 of the width. */ }
-          <label htmlFor='partOfSeries'>Part of Series</label>
-          <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='partOfSeries' defaultValue={props.bookDetail.partOfSeries}></input>
         </div>
-        <div className='col-md-10'> { /* 2nd of 2 columns using 10/12 of the width. */ }
-          <label htmlFor='seriesName'>Series Name</label>
-          <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='seriesName' defaultValue={props.bookDetail.seriesName}></input>
+        <div className='row'>  { /* 4th row in the container */ }
+              <div className="form-check form-switch col-md-4 ps-3 ms-0"> { /* 1st of 2 columns using 2/12 of the width. */}
+                    <div className='row pt-4'>
+                          <label className="form-check-label text-start" htmlFor="partOfSeries">Part of Series</label>
+                          <input className="form-check-input" type="checkbox" id="partOfSeries"></input>
+                    </div>
+          </div>
+          <div className='col-md-1'> { /* 2nd of 2 columns using 10/12 of the width. */ }
+                    <label htmlFor='seriesNum text-center'>&nbsp;&nbsp;#</label>
+                    <input type='text' className='form-control m-0 p-0 ps-1 shadow h-50 border border-primary bg-info bg-opacity-10' id='seriesNum' defaultValue={props.bookDetail.seriesNum}></input>
+              </div>
+              <div className='col-md-7'> { /* 2nd of 2 columns using 10/12 of the width. */ }
+                    <label htmlFor='seriesName'>Series Name</label>
+                    <input type='text' className='form-control shadow h-50 border border-primary bg-info bg-opacity-10' id='seriesName' defaultValue={props.bookDetail.seriesName}></input>
+              </div>
         </div>
-      </div>
-      </div> { /* End of Inner Container */ }
-      </div>
+
+      </div> { /* End of Inner Container */}
+      </div> 
   );
 }
 
