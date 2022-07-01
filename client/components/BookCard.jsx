@@ -3,32 +3,33 @@ import styles from '../_custom.scss';
 // import '../styles/bookcard.scss';
 
 const BookCard = (bookinfo) => {
-
   console.log(bookinfo);
-    // Expected Value
+
+// const { 
+//   author, 
+//   book_id, 
+//   genre_id, 
+//   pages, 
+//   place_in_series, 
+//   series, 
+//   series_name,
+//   title, 
+//   year
+// } = bookinfo.bookinfo;
+
   const { 
-    genre, 
+    title,
+    author,
+    // genre, 
     pages, 
     year, 
     part_of_series, 
-    series_names, 
+    series_name, 
     place_in_series, 
-    overall_enjoyability, 
+    // overall_enjoyability, 
     tags, 
-    comment,
+    comments,
   } = bookinfo.bookinfo;
-
-  // const { 
-  //   author, 
-  //   book_id, 
-  //   genre_id, 
-  //   pages, 
-  //   place_in_series, 
-  //   series, 
-  //   series_name,
-  //   title, 
-  //   year
-  // } = bookinfo.bookinfo;
 
   return (
     <div className='book-card container col-md-3 border shadow border-info'>
@@ -38,12 +39,12 @@ const BookCard = (bookinfo) => {
       
       <div className ="row">
         <div className ="align-items-center col-md-6 text-end border"><strong>Rating</strong></div>
-        <div className = "border d-flex align-items-center best-value col-md-6 text-start ">{overall_enjoyability}</div>
+        {/* <div className = "border d-flex align-items-center best-value col-md-6 text-start ">{overall_enjoyability}</div> */}
       </div>
       
       <div className ="row">
         <div className ="align-items-center col-md-6 text-end border"><strong>Genre</strong></div>
-        <div className = "border best-value col-md-6 text-start">{genre}</div>
+        {/* <div className = "border best-value col-md-6 text-start">{genre}</div> */}
       </div>
 
       <div className ="row">
@@ -59,11 +60,11 @@ const BookCard = (bookinfo) => {
       <div className ="row">
         <div className ="w-100"></div>
         <div className ="align-items-center col-md-6 text-end border"><strong>Part of Series</strong></div>
-        <div className = "border d-flex align-items-center best-value col-md-6 text-start ">{series ? 'Yes' : 'No'}</div>
+        <div className = "border d-flex align-items-center best-value col-md-6 text-start ">{part_of_series ? 'Yes' : 'No'}</div>
       </div>
 
       <div className ="row">
-        <div className ="align-items-center col-md-6 text-end border"><strong>Series </strong></div>
+        <div className ="align-items-center col-md-6 text-end border"><strong>Series</strong></div>
         <div className = "border d-flex align-items-center best-value col-md-6 text-start ">{series_name}</div>
       </div>
 
@@ -81,7 +82,7 @@ const BookCard = (bookinfo) => {
       
       <div className ="card-body">
         {/* <p className="card-text">Fantastic book. I was on the edge of my seat the entire time. I can't believe Harry Potter defeated Gandalf to become a Sith Lord.</p> */}
-        <p className="card-text">{comment}</p>
+        <p className="card-text">{comments}</p>
       </div>
 
     </div>
