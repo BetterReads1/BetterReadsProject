@@ -45,7 +45,31 @@ ratingController.getRatings = function(req, res, next) {
     db.query(ratingQuery)
     .then((data) => {
         console.log('Data after ratingQuery: ', data.rows); // TESTING
-        res.locals.ratings = data.rows;
+
+        const ratings = data.rows;
+        const books = res.locals.books;
+        const retArray = [];
+        for(let i = 0; i < ratings.length; i++) {
+            const r = ratings[i];
+            const retData = {...r};
+            retData.genre = res.locals.genres[retData.genre_id];
+            retData.tags = retData.tags.split(',');
+
+            if(books[r.book_id]) {
+                retData.pages = books[r.book_id].pages;
+                retData.year = books[r.book_id].year;
+                retData.part_of_series = books[r.book_id].series;
+                retData.series_name = books[r.book_id].series_name;
+                retData.place_in_series = books[r.book_id].place_in_series;
+                retData.overall_enjoyability = books[r.book_id].overall_enjoyability;
+                retData.title = books[r.book_id].title;
+                retData.author = books[r.book_id].author;
+            }
+
+            retArray.push(retData);
+        }
+
+        res.locals.ratings = retArray;
         next();
     }).catch((err) => {
         next({
