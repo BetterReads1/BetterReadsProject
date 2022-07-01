@@ -52,7 +52,8 @@ ratingController.getRatings = function(req, res, next) {
         for(let i = 0; i < ratings.length; i++) {
             const r = ratings[i];
             const retData = {...r};
-            retData.genre = res.locals.genres[retData.genre_id];
+            console.log('===============trying to get ' + retData.genre_id + ' from ', res.locals.genres);
+            retData.genre = res.locals.genres[retData.genre_id - 1];
             retData.tags = retData.tags.split(',');
 
             if(books[r.book_id]) {
@@ -61,14 +62,12 @@ ratingController.getRatings = function(req, res, next) {
                 retData.part_of_series = books[r.book_id].series;
                 retData.series_name = books[r.book_id].series_name;
                 retData.place_in_series = books[r.book_id].place_in_series;
-                retData.overall_enjoyability = books[r.book_id].overall_enjoyability;
                 retData.title = books[r.book_id].title;
                 retData.author = books[r.book_id].author;
             }
-
+            
             retArray.push(retData);
         }
-
         res.locals.ratings = retArray;
         next();
     }).catch((err) => {

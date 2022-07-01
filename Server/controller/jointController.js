@@ -206,7 +206,7 @@ jointController.addRating = function(req, res, next) {
         const retData = data.rows[0];
         
         //Lets get that book again!
-        retData.genre = res.locals.genres[retData.genre_id];
+        retData.genre = res.locals.genres[retData.genre_id - 1];
         retData.tags = retData.tags.split(',');
 
         db.query('SELECT * FROM book_table WHERE book_id=' + book_id)
@@ -217,7 +217,6 @@ jointController.addRating = function(req, res, next) {
                 retData.part_of_series = bookdata.rows[0].series;
                 retData.series_name = bookdata.rows[0].series_name;
                 retData.place_in_series = bookdata.rows[0].place_in_series;
-                retData.overall_enjoyability = bookdata.rows[0].overall_enjoyability;
                 retData.title = bookdata.rows[0].title;
                 retData.author = bookdata.rows[0].author;
                 res.locals.addedRating = retData;
