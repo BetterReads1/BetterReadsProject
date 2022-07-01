@@ -6,7 +6,7 @@ function BookContainer(props) {
   const [bookinfo, setBookinfo] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/books')
+    fetch('http://localhost:3000/ratings')
       .then(res => res.json())
       .then((bookdetails) => {setBookinfo([...bookdetails]) })
   }, []);
@@ -19,7 +19,6 @@ function BookContainer(props) {
   }
 
   return (
-    // <div className="container d-flex flex-wrap border-primary shadow" >
     <div id="bookcontainer" className="container border-primary shadow" >
       {cards}
     </div>
