@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from '../_custom.scss';
-// import '../styles/bookcard.scss';
 
 const BookCard = (bookinfo) => {
   console.log(bookinfo);
@@ -20,6 +19,7 @@ const BookCard = (bookinfo) => {
   const { 
     title,
     author,
+    username,
     genre, 
     pages, 
     year, 
@@ -36,7 +36,12 @@ const BookCard = (bookinfo) => {
       <div className = "card-body card-title text-center pt-2">
         <strong>{title}</strong> by <strong>{author}</strong>
       </div>
-      
+
+      <div className ="row">
+        <div className ="align-items-center col-md-6 text-end border"><strong>User</strong></div>
+        <div className = "border d-flex align-items-center best-value col-md-6 text-start ">{username}</div>
+      </div>
+
       <div className ="row">
         <div className ="align-items-center col-md-6 text-end border"><strong>Rating</strong></div>
         <div className = "border d-flex align-items-center best-value col-md-6 text-start ">{overall_enjoyability}</div>
@@ -76,7 +81,7 @@ const BookCard = (bookinfo) => {
       <div className ="row">
         <div className ="align-items-center col-md-12 text-center border">
           {/* <strong>tag1, tag2, tag3</strong> */}
-          <strong>{tags[0]}, {tags[1]}, {tags[2]}</strong>
+          <strong>{tags[0]}, {tags[1]} {tags[2]}</strong>
         </div>
       </div>
       
@@ -84,7 +89,6 @@ const BookCard = (bookinfo) => {
         {/* <p className="card-text">Fantastic book. I was on the edge of my seat the entire time. I can't believe Harry Potter defeated Gandalf to become a Sith Lord.</p> */}
         <p className="card-text">{comments}</p>
       </div>
-
     </div>
 )};
 
