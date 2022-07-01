@@ -56,10 +56,15 @@ function getReviewDets() {
 })
       .then(response => response.json())
       .then(data => {
-      console.log('🔴🟠🟡🟢🔵🟣 | file: ReviewEntryContainer.jsx | line 80 | useEffect | data', data);
+        console.log('🔴🟠🟡🟢🔵🟣 | file: ReviewEntryContainer.jsx | line 80 | useEffect | data', data);
         return data;  
       })
-      .then(data => { setBookGenres([...data]) });
+      .then(data => { 
+        const newArray = [...props.books];
+        newArray.push(data);
+        console.log(newArray);
+        props.setBookinfo(newArray);
+      });
   
   return daDeets;
 }
