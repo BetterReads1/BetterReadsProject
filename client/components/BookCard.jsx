@@ -20,13 +20,13 @@ const BookCard = (bookinfo) => {
   const { 
     title,
     author,
-    // genre, 
+    genre, 
     pages, 
     year, 
     part_of_series, 
     series_name, 
     place_in_series, 
-    // overall_enjoyability, 
+    overall_enjoyability, 
     tags, 
     comments,
   } = bookinfo.bookinfo;
@@ -39,12 +39,12 @@ const BookCard = (bookinfo) => {
       
       <div className ="row">
         <div className ="align-items-center col-md-6 text-end border"><strong>Rating</strong></div>
-        {/* <div className = "border d-flex align-items-center best-value col-md-6 text-start ">{overall_enjoyability}</div> */}
+        <div className = "border d-flex align-items-center best-value col-md-6 text-start ">{overall_enjoyability}</div>
       </div>
       
       <div className ="row">
         <div className ="align-items-center col-md-6 text-end border"><strong>Genre</strong></div>
-        {/* <div className = "border best-value col-md-6 text-start">{genre}</div> */}
+        <div className = "border best-value col-md-6 text-start">{genre}</div>
       </div>
 
       <div className ="row">
