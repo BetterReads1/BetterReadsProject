@@ -3,31 +3,23 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: path.join(__dirname, "src", "index.js"),
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    //filename: 'bundle.js',
+    filename: 'bundle.js',
   },
-
   devServer: {
-    host: 'localhost',
-    port: 8080,
-    // enable HMR on the devServer
-    hot: true,
-    // fallback to root for other urls
-    historyApiFallback: true,
-
     static: {
       // match the output path
       directory: path.resolve(__dirname, 'dist'),
-      // match the output 'publicPath'
-      publicPath: '/',
     },
+    // fallback to root for other urls
+    historyApiFallback: true,
     proxy: {
-      '/api/**': 'http://localhost:3000/',
+      '/api': 'http://localhost:3000/',
+      secure: false
     },
   },
-
   module: {
     rules: [
       {
@@ -41,29 +33,15 @@ module.exports = {
         }
       },
       {
-        test:/\.jsx?$/,
-        exclude:/node-module/,
-        use: {
-            loader:'babel-loader',
-            options:{
-                presets:['@babel/preset-env', '@babel/preset-react']
-            }
-        }
-      },
-      {
         test: /\.css$/i,
-        use: [
-            "style-loader",
-            "css-loader"
-          ]
+        use: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   },
   plugins: [  
     new HtmlWebpackPlugin({
-     template: path.join(__dirname, "src", "index.html"),
+      template: './src/index.html',
     }),
   ],
   devtool: 'inline-source-map',
-  
 }
