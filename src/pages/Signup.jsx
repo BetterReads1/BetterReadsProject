@@ -9,7 +9,7 @@ export default function Signup() {
   const [newUser, setNewUser] = useState({email: '', username: '', password: ''});
 
   const handleChange = (e) => {
-    setNewUser({...user, [e.target.name]: e.target.value});
+    setNewUser({...newUser, [e.target.name]: e.target.value});
   }
 
   const handleSubmit = (e) => {
@@ -20,7 +20,7 @@ export default function Signup() {
     const requestDetails = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: newUser.email, newUser: user.username, password: newUser.password })
+      body: JSON.stringify({ email: newUser.email, newUser: newUser.username, password: newUser.password })
     }
     alert('Account successfuly created. Please sign in to get started.')
     //redirect to home page
