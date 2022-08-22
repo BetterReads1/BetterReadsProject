@@ -11,7 +11,6 @@ const {threePost_Table, threeRatings_Table, threeBook_Table} = betterReadsContro
 
 app.use(cors());
 app.use(express.json());
-
 // send index.html file to base endpoint
 // app.use(express.static(path.resolve(__dirname, '../dist')));
 
