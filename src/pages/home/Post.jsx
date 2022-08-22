@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from '../../assets/post.css';
+import '../../assets/post.css';
 
 const Post = ({name, title, author, comments, plotline, unpredictability, pace, writingStyle, ending, overallEnjoyability, tags}) => {
 
@@ -20,14 +20,16 @@ const Post = ({name, title, author, comments, plotline, unpredictability, pace, 
 return(
     <div id="post-section">
         <div>
-            <p>Name: {name}</p> <br/>
-            <p>Title: {title}</p> <br/>
-            <p>Author: {author}</p> <br/>
-            <p>Comments: {comments}</p> <br/>
-            <p>Tags: {tags}</p> <br/>
-            <button onClick={handleGetOtherReviews}>See Other Reviews</button>
+            <ul id="postInfo">
+                <li>Name: {name}</li> <br/>
+                <li>Title: {title}</li> <br/>
+                <li>Author: {author}</li> <br/>
+                <li>Comments: {comments}</li> <br/>
+                <li>Tags: {tags}</li> <br/>
+            </ul>
+            <button className="button-post" onClick={handleGetOtherReviews}>See Other Reviews</button>
         </div>
-        <div >
+        <div>
             <ul id="ratings">
                 <li>Plotline: {plotline}</li> <br/>
                 <li>Unpredictability: {unpredictability}</li> <br/>
@@ -36,8 +38,10 @@ return(
                 <li>Ending: {ending}</li> <br/>
                 <li>Overall Enjoyability: {overallEnjoyability}</li> <br/>
             </ul>
-            <button onClick={handleUpdateReview}>Update My Review</button>
-            <button onClick={handleDeleteReview}>Delete My Review</button>
+            <div>
+                <button className="button-post" onClick={handleUpdateReview}>Update My Review</button>
+                <button className="button-post" onClick={handleDeleteReview}>Delete My Review</button>
+            </div>
         </div>
     </div>
   )

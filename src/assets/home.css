@@ -1,11 +1,4 @@
-#post-section {
-    display: flex;
-    justify-content: space-evenly;
-    border-style: double;
-    padding: 15px;
-}
-
-.button-post {
+#createPostButton {
   background-color: #EA4C89;
   border-radius: 8px;
   border-style: none;
@@ -32,7 +25,7 @@
   touch-action: manipulation;
 }
 
-.button-post:hover,
-.button-post:focus {
+#createPostButton:hover,
+#createPostButton:focus {
   background-color: #F082AC;
 }

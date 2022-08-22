@@ -73,7 +73,7 @@ const RenderFeed = () => {
 
   //parses newestPosts and creates jsx elements to render
   const posts = [];
-    for(let i = 0; i < 1; i++) {
+    for(let i = 0; i < 3; i++) {
       const tempTags = newestPosts[i].tags.join(", ");
       posts.push(
         <Post name={newestPosts[i].name} title={newestPosts[i].title} author={newestPosts[i].author} comments={newestPosts[i].comments}
