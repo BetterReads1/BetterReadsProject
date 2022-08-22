@@ -1,9 +1,12 @@
 import * as React from 'react';
+import MainContainer from './MainContainer.jsx';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Home = () => {
   return(
-    <div>Home Page</div>
+    <div>
+      <MainContainer></MainContainer>
+    </div>
   )
 }
 

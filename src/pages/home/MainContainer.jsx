@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CreatePost from './home/CreatePost.jsx';
+import CreatePost from './CreatePost.jsx';
 import RenderFeed from './RenderFeed.jsx';
 
 class MainContainer extends Component {
@@ -12,7 +12,7 @@ class MainContainer extends Component {
     render() {
       return (
         <div id="main-container">
-          <CreatePost/>
+          {/* <CreatePost/> */}
           <RenderFeed/>
         </div>
       );

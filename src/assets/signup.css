@@ -19,7 +19,7 @@ form {
   width: 50vw;
 }
 
-form:after {
+/* form:after {
   content: '';
   display: block;
   position: absolute;
@@ -29,7 +29,7 @@ form:after {
   bottom: -5px;
   z-index: 1;
   background-image: linear-gradient(to bottom right, #FFCE00, #FE4880)
-}
+} */
 
 form .form-inner {
   position: relative;
