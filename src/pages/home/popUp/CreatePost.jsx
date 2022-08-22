@@ -71,7 +71,7 @@ const CreatePost = ({ handleClose }) => {
       <div className="box">
         <span className="close-icon" onClick={handleClose}>x</span>
         <h1>BOOK INFO</h1>
-        <form action="http://localhost:3000/" onSubmit={handleSubmit} id="post-form">
+        <form className="createPostForm" action="http://localhost:3000/" onSubmit={handleSubmit} id="post-form">
           <label>NAME</label> <input 
             id="name"
             name="name"
@@ -80,7 +80,7 @@ const CreatePost = ({ handleClose }) => {
             value={name}
             required
           /> <br/>
-          <label>TITLE</label> <input 
+          <label>TITLE</label> <input
             id="title"
             name="title"
             type="text"
@@ -104,7 +104,7 @@ const CreatePost = ({ handleClose }) => {
             value={comments}
             required
           /><br/>
-          <div className='ratings'> <h2>RATINGS</h2> <br/>
+          <div className='ratings'> <h2>RATINGS (1-10)</h2> <br/>
           <label>PLOTLINE</label> <input 
               id="plotline"
               name="plotline"
@@ -162,7 +162,7 @@ const CreatePost = ({ handleClose }) => {
             placeholder="Separate tags with commas (i.e. fiction, romance, etc)"
             required
           /> <br/>
-          <button type="submit">Submit form</button>
+          <button id="submitFormButton" type="submit">Submit Form</button>
         </form>
       </div>
     </div>

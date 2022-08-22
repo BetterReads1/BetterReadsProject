@@ -3,13 +3,13 @@
     justify-content: space-evenly;
     border-style: double;
     padding: 15px;
+    width: 800px;
 }
 
 .button-post {
   background-color: #EA4C89;
   border-radius: 8px;
   border-style: none;
-  box-sizing: border-box;
   color: #FFFFFF;
   cursor: pointer;
   display: inline-block;
@@ -35,4 +35,17 @@
 .button-post:hover,
 .button-post:focus {
   background-color: #F082AC;
+}
+
+#postInfo {
+  width: 375px
+}
+
+#ratings {
+  width: 375px
+}
+
+#button-container {
+  display: flex;
+  justify-content: space-between;
 }

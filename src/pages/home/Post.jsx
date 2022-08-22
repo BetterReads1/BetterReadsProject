@@ -19,8 +19,8 @@ const Post = ({name, title, author, comments, plotline, unpredictability, pace, 
 
 return(
     <div id="post-section">
-        <div>
-            <ul id="postInfo">
+        <div id="postInfo">
+            <ul>
                 <li>Name: {name}</li> <br/>
                 <li>Title: {title}</li> <br/>
                 <li>Author: {author}</li> <br/>
@@ -29,8 +29,8 @@ return(
             </ul>
             <button className="button-post" onClick={handleGetOtherReviews}>See Other Reviews</button>
         </div>
-        <div>
-            <ul id="ratings">
+        <div id="ratings">
+            <ul>
                 <li>Plotline: {plotline}</li> <br/>
                 <li>Unpredictability: {unpredictability}</li> <br/>
                 <li>Pace: {pace}</li> <br/>
@@ -38,7 +38,7 @@ return(
                 <li>Ending: {ending}</li> <br/>
                 <li>Overall Enjoyability: {overallEnjoyability}</li> <br/>
             </ul>
-            <div>
+            <div id="button-container">
                 <button className="button-post" onClick={handleUpdateReview}>Update My Review</button>
                 <button className="button-post" onClick={handleDeleteReview}>Delete My Review</button>
             </div>

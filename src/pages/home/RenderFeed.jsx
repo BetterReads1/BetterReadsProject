@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Post from './Post.jsx'
+import '../../assets/renderFeed.css'
 const axios = require('axios');
 
 const RenderFeed = () => {

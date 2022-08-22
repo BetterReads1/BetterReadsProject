@@ -50,7 +50,7 @@ export default function Signup() {
   return(
     <div className='container'> 
       <div id='signup-page'>
-        <form onSubmit={handleSubmit}>
+        <form className="signin-form" onSubmit={handleSubmit}>
           <div className="form-inner">
             <h2>Create an Account</h2>
             <div className="form-group">

@@ -13,7 +13,7 @@ const Home = () => {
   }
   
   return(
-    <div>
+    <div id="main-section">
       <RenderFeed/>
       <input id="createPostButton" type="button" value="Add Review" onClick={toggleCreatePostPopup}/>
       {isCreatePostOpen && <CreatePost handleClose={toggleCreatePostPopup}></CreatePost>}
