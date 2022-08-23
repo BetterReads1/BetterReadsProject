@@ -19,7 +19,7 @@
   height: 40px;
   line-height: 20px;
   list-style: none;
-  margin: 0;
+  margin: 10px;
   outline: none;
   padding: 10px 16px;
   position: relative;
@@ -30,6 +30,7 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  width: 200px;
 }
 
 .button-post:hover,
@@ -38,11 +39,17 @@
 }
 
 #postInfo {
-  width: 375px
+  width: 375px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #ratings {
-  width: 375px
+  width: 375px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #button-container {

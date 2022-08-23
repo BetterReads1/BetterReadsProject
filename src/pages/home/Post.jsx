@@ -1,8 +1,15 @@
-import * as React from 'react';
+import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import '../../assets/post.css';
+import RelatedReviews from './popUp/RelatedReviews.jsx';
 
 const Post = ({name, title, author, comments, plotline, unpredictability, pace, writingStyle, ending, overallEnjoyability, tags}) => {
+
+    const [isRelatedReviewsOpen, setisRelatedReviewsOpen] = useState(false);
+
+    const toggleRelatedReviewsPopup = () => {
+        setisRelatedReviewsOpen(!isRelatedReviewsOpen);
+    }
 
     const handleGetOtherReviews = () => {
         console.log("handleGetReviews invoked");
@@ -27,7 +34,9 @@ return(
                 <li>Comments: {comments}</li> <br/>
                 <li>Tags: {tags}</li> <br/>
             </ul>
-            <button className="button-post" onClick={handleGetOtherReviews}>See Other Reviews</button>
+            <input className="button-post" type="button" value="See Other Reviews" onClick={toggleRelatedReviewsPopup}/>
+            {isRelatedReviewsOpen && <RelatedReviews handleClose={toggleRelatedReviewsPopup}></RelatedReviews>}   
+
         </div>
         <div id="ratings">
             <ul>
