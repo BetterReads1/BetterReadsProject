@@ -13,13 +13,13 @@ input, button {
   outline: none;
 }
 
-form {
+.login-form {
   display: block;
   position: relative;
   width: 50vw;
 }
 
-form:after {
+.login-form:after {
   content: '';
   display: block;
   position: absolute;
@@ -31,7 +31,7 @@ form:after {
   background-image: linear-gradient(to bottom right, #FFCE00, #FE4880)
 }
 
-form .form-inner {
+.login-form .form-inner {
   position: relative;
   display: block;
   background-color: #FFF;
@@ -39,20 +39,20 @@ form .form-inner {
   z-index: 2;
 }
 
-form .form-inner h2 {
+.login-form .form-inner h2 {
   color: #888;
   font-size: 28px;
   font-weight: 500;
   margin-bottom: 30px;
 }
 
-form .form-inner .form-group {
+.login-form .form-inner .form-group {
   display: block;
   color: #666;
   margin-bottom: 15px;
 }
 
-form .form-inner .form-group label {
+.login-form .form-inner .form-group label {
   display: block;
   color: #666;
   font-size: 15px;
@@ -60,11 +60,11 @@ form .form-inner .form-group label {
   transition: 0.4s;
 }
 
-form .form-inner .form-group:focus-within label {
+.login-form .form-inner .form-group:focus-within label {
   color: #FE4880;
 }
 
-form .form-inner .form-group input {
+.login-form .form-inner .form-group input {
   /* display: block; */
   display: flex;
   justify-content: center;
@@ -76,16 +76,11 @@ form .form-inner .form-group input {
   transition: 0.4s;
 }
 
-form .form-inner.form-group input:focus {
+.login-form .form-inner.form-group input:focus {
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
 }
 
-#button-container {
-  display: flex;
-  justify-content: center;
-}
-
-form .form-inner input[type="submit"] {
+.login-form .form-inner input[type="submit"] {
   padding: 12px 25px;
   margin: 10px auto;
   border-radius: 8px;
