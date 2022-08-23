@@ -9,16 +9,11 @@ module.exports = {
     filename: 'bundle.js',
   },
   devServer: {
-    static: {
-      // match the output path
-      directory: path.resolve(__dirname, 'dist'),
-    },
-    // fallback to root for other urls
-    historyApiFallback: true,
     proxy: {
-      '/api': 'http://localhost:3000/',
-      secure: false
+      '/api': 'http://localhost:3000'
     },
+    port: 8080,
+    historyApiFallback: true
   },
   module: {
     rules: [
@@ -41,6 +36,7 @@ module.exports = {
   plugins: [  
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      inject: false
     }),
   ],
   devtool: 'inline-source-map',
