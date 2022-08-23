@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --mode development",
-    "dev": "concurrently \"webpack-dev-server --mode development --open --hot\" \"nodemon server/server.js --mode development\" ",
+    "dev": "concurrently \"webpack-dev-server --hot --mode development\" \"nodemon ./server/server.js\"",
     "build": "webpack --mode production"
   },
   "repository": {
