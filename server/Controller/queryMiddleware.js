@@ -84,23 +84,26 @@ queryMiddleware.addToHash_Table = (req, res, next) => {
     //destructure the request body
     const { tags } = req.body;
     const tagsArray = tags.split(",");
-    console.log(tagsArray)
-
-    const queryString = `INSERT INTO hash_table (hash) VALUES ($1), ($2), ($3) RETURNING *`
+    console.log("new tags:", tagsArray)
+    let insertIntoQuery = ""
+    for (let i = 1; i <= tagsArray.length; i++) {
+        if (i < tagsArray.length) {
+            insertIntoQuery = insertIntoQuery.concat("($", i, "), ");
+        } else {
+            insertIntoQuery = insertIntoQuery.concat("($", i, ") ");
+        }
+    }
+    console.log("insertIntoQuery", insertIntoQuery);
+    const queryString = `INSERT INTO hash_table (hash) VALUES ${insertIntoQuery} RETURNING *`
 
     db.query(queryString, tagsArray)
     .then((data) => {
-        console.log(" -------------------------------------------------------- ADD TO HASH TABLE D:", data)
-        res.locals.hashOne = data.rows[0].hash_id;
-        res.locals.hashTwo = data.rows[1].hash_id;
-        res.locals.hashThree = data.rows[2].hash_id;
+        console.log("Added to hash_table:", data.rows)
         next();
     })
     .catch((err) => {
         return next();
     })
-    //query for adding to the book table
-    //adds book title and author to database if it doesnt exist
 }
 
 // add to rating_table
