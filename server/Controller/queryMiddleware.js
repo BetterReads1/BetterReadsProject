@@ -3,15 +3,15 @@ const db = require('../Models/betterReadsModel');
 const queryMiddleware = {}
 
 queryMiddleware.addToBook_Table = (req, res, next) => {
+    console.log("AddToBOok_Table req.body", req.body);
     //destructure the request body
     const { title, author } = req.body;
     //query for adding to the book table
-    const book_tableAdd = `INSERT INTO book_table (title, author) VALUES ($1, $2) RETURNING *` 
-    const book_tableParamArray = [title, author];
-    //adds book title and author to database if it doesnt exist
-    db.query(book_tableAdd, book_tableParamArray)
+    const book_tableAdd = `INSERT INTO book_table (title, author) VALUES ('${title}', '${author}') RETURNING *`
+    // adds book title and author to database if it doesnt exist
+    db.query(book_tableAdd)
     .then((data) => {
-        // console.log(data);
+        console.log("addToBook_Table data", data);
         next();
     }).catch((err) => {
         next();
@@ -31,6 +31,7 @@ queryMiddleware.getBook_Id = (req, res, next) => {
 
     db.query(book_tableAdded, book_idParamArray)
     .then((data) => {
+        console.log("getBook_Id: data", data);
         res.locals.book_id = data.rows[0].book_id;
         next();
     }).catch((err) => {
@@ -46,7 +47,7 @@ queryMiddleware.addToPost_Table = (req, res, next) => {
 
     db.query(post_tableAdd, post_tableParamArray)
     .then((data) => {
-        // console.log("SUCCESSFULLY ADDED POST TO POST_TABLE");
+        console.log("Added post to post_table");
         next();
     }).catch((err) => {
         next({
@@ -83,23 +84,26 @@ queryMiddleware.addToHash_Table = (req, res, next) => {
     //destructure the request body
     const { tags } = req.body;
     const tagsArray = tags.split(",");
-    console.log(tagsArray)
-
-    const queryString = `INSERT INTO hash_table (hash) VALUES ($1), ($2), ($3) RETURNING *`
+    console.log("new tags:", tagsArray)
+    let insertIntoQuery = ""
+    for (let i = 1; i <= tagsArray.length; i++) {
+        if (i < tagsArray.length) {
+            insertIntoQuery = insertIntoQuery.concat("($", i, "), ");
+        } else {
+            insertIntoQuery = insertIntoQuery.concat("($", i, ") ");
+        }
+    }
+    console.log("insertIntoQuery", insertIntoQuery);
+    const queryString = `INSERT INTO hash_table (hash) VALUES ${insertIntoQuery} RETURNING *`
 
     db.query(queryString, tagsArray)
     .then((data) => {
-        console.log(" -------------------------------------------------------- ADD TO HASH TABLE D:", data)
-        res.locals.hashOne = data.rows[0].hash_id;
-        res.locals.hashTwo = data.rows[1].hash_id;
-        res.locals.hashThree = data.rows[2].hash_id;
+        console.log("Added to hash_table:", data.rows)
         next();
     })
     .catch((err) => {
         return next();
     })
-    //query for adding to the book table
-    //adds book title and author to database if it doesnt exist
 }
 
 // add to rating_table
