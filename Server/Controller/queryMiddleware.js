@@ -3,6 +3,7 @@ const db = require('../Models/betterReadsModel');
 const queryMiddleware = {}
 
 queryMiddleware.addToBook_Table = (req, res, next) => {
+    console.log("AddToBOok_Table req.body", req.body);
     //destructure the request body
     const { title, author } = req.body;
     //query for adding to the book table
@@ -11,14 +12,14 @@ queryMiddleware.addToBook_Table = (req, res, next) => {
     //adds book title and author to database if it doesnt exist
     db.query(book_tableAdd, book_tableParamArray)
     .then((data) => {
-        // console.log(data);
+        console.log("addToBook_Table", data);
         next();
     }).catch((err) => {
-        next();
-        // next({
-        //     log: 'addToBook_Table error',
-        //     message: {err: 'An error occured in addToBook_Table'}
-        // });
+        // next();
+        next({
+            log: 'addToBook_Table error',
+            message: {err: 'An error occured in addToBook_Table'}
+        });
     });
 }
 

@@ -6,17 +6,6 @@ const axios = require('axios');
 
 const CreatePost = ({ handleClose }) => {
 
-  // componentDidMount() {
-  //     axios.get('http://localhost:3000/')
-  //       .then( res => {
-  //         // console.log(res.locals.test);
-  //         console.log(res.data);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       })
-  // }
-
   const [name, setName] = useState('');
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -31,24 +20,42 @@ const CreatePost = ({ handleClose }) => {
 
   const handleSubmit = async event => {
     console.log('handleSubmit ran');
-    event.preventDefault(); //prevents the default behaviour of the browser submitting the form so that we can handle things instead.
+    //prevents the default behaviour of the browser submitting the form so that we can handle things instead.
+    event.preventDefault(); 
 
-    //send post request to backend
-    const form = event.currentTarget; //gets elements the event handler was attached to
-    const url = form.action; //takes API url from form's action attirbute
+    // request body
+    const formData = {
+      name,
+      title,
+      author,
+      comments,
+      plotline,
+      unpredictability,
+      pace,
+      writingStyle,
+      ending,
+      overallEnjoyability,
+      tags
+    }
 
-    try{
-      const formData = new FormData(form); //takes all the fields in the form and makes their values available through a `FormData` instance
-      console.log("form data: ", formData);
-      formData.tags = formData.tags.split(','); //make tags an array of strings
-      consoel.log("form tags data should be an array: ", formData.tags);
-      header = {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      }
-      const responseData = await axios.post(url, formData, header);
-      console.log({ responseData });
-    } catch(error){
+    // request header
+    const header = {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    }
+
+    try {
+      let resData = await fetch('http://localhost:3000/api', {
+        method: 'POST',
+        headers: header,
+        body: (JSON.stringify(formData))
+      })
+
+      const data = await resData.json();
+      console.log("Response data", data);
+      return data;
+
+    } catch(error) {
       console.error(error);
     }
 
