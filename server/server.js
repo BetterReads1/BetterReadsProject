@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 
+const apiRoutes = require('./Routes/apiRoutes.js')
+
 const app = express();
 const PORT = 3000;
 
@@ -17,9 +19,7 @@ app.get('/', (req, res) => {
   })
 
 // All api requests will go through here
-app.use('/api', (req, res) => {
-    return res.status(200).json([]);
-})
+app.use('/api', apiRoutes )
 
 app.use((req, res) => {
     res.status(404).json("Page not found");

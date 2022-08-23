@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import '../../../assets/createPost.css';
-// import { Link } from "react-router-dom";
-const axios = require('axios');
-
 
 const CreatePost = ({ handleClose }) => {
 
